@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIRUBEL YONAS — PicasoTheDealer</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0d1117;
+            --bg-deeper: #05070a;
+            --bg-elevated: #111820;
+            --border-default: #1c2333;
+            --border-subtle: #161d28;
+            --text-primary: #e6edf3;
+            --text-secondary: #8b949e;
+            --text-tertiary: #5d6670;
+            --accent: #5b7a9e;
+            --accent-subtle: #3d5068;
+            --font-sans: 'Inter', 'SF Pro Display', system-ui, -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
+            --track-width: 340px;
+            --left-col-max: 720px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: geometricPrecision;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            min-height: 100vh;
+            letter-spacing: -0.01em;
+            counter-reset: project-counter;
+        }
+
+        /* Subtle background texture — barely perceptible grid */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.018;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            background-position: center center;
+        }
+
+        /* ── Page Wrapper ── */
+        .page-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 1340px;
+            margin: 0 auto;
+            padding: 0 48px;
+        }
+
+        /* ── HERO SECTION ── */
+        .hero {
+            padding: 80px 0 56px;
+            border-bottom: 1px solid var(--border-default);
+            position: relative;
+        }
+
+        .hero-overline {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .hero-name {
+            font-family: var(--font-sans);
+            font-size: clamp(2.6rem, 5.5vw, 4.4rem);
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            line-height: 1.05;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .hero-handle {
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--accent);
+            letter-spacing: 0.02em;
+            margin-bottom: 18px;
+            display: inline-block;
+            position: relative;
+        }
+
+        .hero-handle::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: var(--accent-subtle);
+        }
+
+        .hero-title-block {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 24px;
+            align-items: baseline;
+            margin-bottom: 10px;
+        }
+
+        .hero-title {
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            letter-spacing: -0.005em;
+        }
+
+        .hero-location {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--text-tertiary);
+            font-family: var(--font-mono);
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+        }
+
+        .hero-location::before {
+            content: '// ';
+            color: var(--text-tertiary);
+            opacity: 0.5;
+        }
+
+        .hero-contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 14px;
+            align-items: center;
+        }
+
+        .hero-contact-link {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-decoration: none;
+            letter-spacing: 0.02em;
+            transition: color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 0;
+            border-bottom: 1px solid transparent;
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .hero-contact-link:hover {
+            color: var(--accent);
+            border-bottom-color: var(--accent-subtle);
+        }
+
+        .hero-contact-link i {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+            transition: color 0.2s ease;
+        }
+        .hero-contact-link:hover i {
+            color: var(--accent);
+        }
+
+        .hero-contact-sep {
+            color: var(--border-default);
+            font-size: 0.7rem;
+            user-select: none;
+        }
+
+        /* ── NARRATIVE ── */
+        .narrative-section {
+            margin-top: 36px;
+            padding-top: 28px;
+            border-top: 1px solid var(--border-subtle);
+            max-width: 680px;
+        }
+
+        .narrative-label {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .narrative-text {
+            font-size: 0.95rem;
+            font-weight: 400;
+            line-height: 1.75;
+            color: var(--text-secondary);
+            letter-spacing: 0.005em;
+        }
+
+        /* ── TWO-COLUMN LAYOUT ── */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr var(--track-width);
+            gap: 0;
+            position: relative;
+        }
+
+        .left-column {
+            padding: 48px 0 80px;
+            padding-right: 56px;
+            max-width: var(--left-col-max);
+            border-right: 1px solid var(--border-subtle);
+        }
+
+        .right-column {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow: hidden;
+            background-color: var(--bg-primary);
+            border-left: 1px solid var(--border-default);
+            margin-left: -1px;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── SECTION HEADERS ── */
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: 28px;
+            display: block;
+            position: relative;
+            padding-left: 14px;
+        }
+
+        .section-label::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 10px;
+            background-color: var(--accent-subtle);
+        }
+
+        /* ── PROJECT BLOCKS ── */
+        .project-block {
+            position: relative;
+            padding: 28px 0 28px 18px;
+            border-left: 2px solid var(--border-default);
+            margin-bottom: 8px;
+            transition: border-left-color 0.25s ease;
+            counter-increment: project-counter;
+        }
+
+        .project-block:hover {
+            border-left-color: var(--accent);
+        }
+
+        .project-block::before {
+            content: '0' counter(project-counter);
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            color: var(--text-tertiary);
+            position: absolute;
+            left: -42px;
+            top: 30px;
+        }
+
+        .project-name {
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .project-subtitle {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            color: var(--text-tertiary);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .project-desc {
+            font-size: 0.9rem;
+            font-weight: 400;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            letter-spacing: 0.005em;
+        }
+
+        /* ── EXPERIENCE BLOCK ── */
+        .experience-section {
+            margin-top: 44px;
+            padding-top: 28px;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .experience-block {
+            position: relative;
+            padding: 24px 0 24px 18px;
+            border-left: 2px solid var(--border-default);
+            transition: border-left-color 0.25s ease;
+        }
+
+        .experience-block:hover {
+            border-left-color: var(--accent);
+        }
+
+        .experience-role {
+            font-size: 1.15rem;
+            font-weight: 600;
+            letter-spacing: -0.005em;
+            color: var(--text-primary);
+        }
+
+        .experience-company {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            color: var(--accent);
+            margin-bottom: 2px;
+            display: block;
+        }
+
+        .experience-dates {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            font-weight: 400;
+            color: var(--text-tertiary);
+            letter-spacing: 0.04em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .experience-desc {
+            font-size: 0.9rem;
+            font-weight: 400;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            letter-spacing: 0.005em;
+        }
+
+        /* ── RIGHT COLUMN: SCROLLING TRACK ── */
+        .track-header {
+            flex-shrink: 0;
+            padding: 20px 20px 14px;
+            border-bottom: 1px solid var(--border-default);
+            background-color: var(--bg-primary);
+            z-index: 3;
+        }
+
+        .track-header-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .track-header-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background-color: var(--border-subtle);
+        }
+
+        .track-pulse {
+            display: inline-block;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%,
+            100% {
+                opacity: 0.35;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .scroll-track-outer {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Clean sharp cutoffs at top and bottom — no gradients */
+        .scroll-track-outer::before,
+        .scroll-track-outer::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 28px;
+            z-index: 4;
+            pointer-events: none;
+        }
+
+        .scroll-track-outer::before {
+            top: 0;
+            background-color: var(--bg-primary);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .scroll-track-outer::after {
+            bottom: 0;
+            background-color: var(--bg-primary);
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .scroll-track-inner {
+            animation: scrollTrackVertical 32s linear infinite;
+            padding: 36px 16px 36px;
+            will-change: transform;
+        }
+
+        .scroll-track-inner:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollTrackVertical {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-50%);
+            }
+        }
+
+        .track-category {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            padding: 18px 8px 8px 8px;
+            border-bottom: 1px solid var(--border-subtle);
+            margin-bottom: 8px;
+            opacity: 0.7;
+        }
+
+        .track-category:first-child {
+            padding-top: 4px;
+        }
+
+        .track-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 10px;
+            border-radius: 2px;
+            transition: background-color 0.18s ease;
+            cursor: default;
+        }
+
+        .track-item:hover {
+            background-color: var(--bg-elevated);
+        }
+
+        .track-item i {
+            font-size: 1.1rem;
+            color: var(--text-tertiary);
+            width: 22px;
+            text-align: center;
+            flex-shrink: 0;
+            transition: color 0.2s ease;
+        }
+
+        .track-item:hover i {
+            color: var(--accent);
+        }
+
+        .track-item span {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            transition: color 0.2s ease;
+        }
+
+        .track-item:hover span {
+            color: var(--text-primary);
+        }
+
+        /* ── FOOTER ── */
+        .page-footer {
+            border-top: 1px solid var(--border-default);
+            padding: 24px 0;
+            text-align: left;
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            color: var(--text-tertiary);
+            letter-spacing: 0.06em;
+        }
+
+        .page-footer span {
+            color: var(--accent);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1100px) {
+            .main-grid {
+                grid-template-columns: 1fr 280px;
+            }
+            :root {
+                --track-width: 280px;
+            }
+            .left-column {
+                padding-right: 36px;
+            }
+            .track-item {
+                gap: 8px;
+                padding: 8px 6px;
+            }
+            .track-item i {
+                font-size: 0.95rem;
+                width: 18px;
+            }
+            .track-item span {
+                font-size: 0.65rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-wrapper {
+                padding: 0 20px;
+            }
+            .hero {
+                padding: 48px 0 36px;
+            }
+            .hero-name {
+                font-size: 2rem;
+            }
+            .narrative-section {
+                max-width: 100%;
+            }
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            .left-column {
+                padding-right: 0;
+                border-right: none;
+                max-width: 100%;
+                padding-bottom: 24px;
+            }
+            .right-column {
+                position: relative;
+                top: auto;
+                height: 420px;
+                border-left: none;
+                border-top: 1px solid var(--border-default);
+                border-bottom: 1px solid var(--border-default);
+                margin-left: 0;
+                margin-bottom: 40px;
+            }
+            .scroll-track-outer::before,
+            .scroll-track-outer::after {
+                height: 20px;
+            }
+            .project-block::before {
+                left: -32px;
+                font-size: 0.6rem;
+            }
+            .project-block {
+                padding-left: 14px;
+            }
+            .experience-block {
+                padding-left: 14px;
+            }
+            .section-label {
+                padding-left: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 32px 0 28px;
+            }
+            .hero-name {
+                font-size: 1.7rem;
+            }
+            .hero-title {
+                font-size: 0.95rem;
+            }
+            .hero-contact-row {
+                gap: 10px;
+            }
+            .hero-contact-link {
+                font-size: 0.7rem;
+            }
+            .narrative-text {
+                font-size: 0.85rem;
+            }
+            .project-name {
+                font-size: 1.1rem;
+            }
+            .project-desc {
+                font-size: 0.82rem;
+            }
+            .right-column {
+                height: 340px;
+            }
+            .track-item {
+                padding: 7px 4px;
+                gap: 6px;
+            }
+            .track-item i {
+                font-size: 0.85rem;
+                width: 16px;
+            }
+            .track-item span {
+                font-size: 0.62rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+
+        <!-- ═══════════ HERO / INTRO ═══════════ -->
+        <header class="hero">
+            <span class="hero-overline">Portfolio / Dossier</span>
+            <h1 class="hero-name">KIRUBEL YONAS</h1>
+            <span class="hero-handle">PicasoTheDealer</span>
+            <div class="hero-title-block">
+                <span class="hero-title">Cybersecurity Researcher / Systems Engineer / Software Developer</span>
+            </div>
+            <span class="hero-location">Addis Ababa, Ethiopia &mdash; Open to Remote</span>
+            <div class="hero-contact-row">
+                <a href="mailto:picasothedealer.com@gmail.com" class="hero-contact-link">
+                    <i class="bi bi-envelope"></i> picasothedealer.com@gmail.com
+                </a>
+                <span class="hero-contact-sep">|</span>
+                <a href="https://github.com/PicasoTheDealer" target="_blank" rel="noopener noreferrer" class="hero-contact-link">
+                    <i class="bi bi-github"></i> github.com/PicasoTheDealer
+                </a>
+            </div>
+
+            <!-- Narrative -->
+            <div class="narrative-section">
+                <span class="narrative-label">&gt; whoami</span>
+                <p class="narrative-text">
+                    Technical security researcher and systems engineer specializing in vulnerability enumeration,
+                    Active Directory exploitation, and custom infrastructure architecture. Focused on isolating
+                    memory safety flaws via automated fuzzing and executing lateral movement within hardened
+                    corporate networks. I build secure systems from the kernel up, engineer high-velocity backend
+                    automation, and analyze closed-source applications to map critical failure points. I operate
+                    with an attacker&rsquo;s mindset to write code that is inherently secure.
+                </p>
+            </div>
+        </header>
+
+        <!-- ═══════════ TWO-COLUMN MAIN CONTENT ═══════════ -->
+        <div class="main-grid">
+
+            <!-- LEFT COLUMN: Projects + Experience -->
+            <section class="left-column">
+
+                <span class="section-label">Core Projects</span>
+
+                <!-- Project 1: KASCVE -->
+                <article class="project-block">
+                    <h2 class="project-name">Project KASCVE</h2>
+                    <p class="project-subtitle">Automated Security Auditing Ecosystem &amp; Perimeter Monitor</p>
+                    <p class="project-desc">
+                        KASCVE operates as a continuous, automated perimeter monitor and security auditing ecosystem
+                        that strictly mandates domain ownership proof via file challenges or Cloudflare API validation
+                        before initiating scanning sequences. Once ownership is verified, the system passively maps out
+                        the target&rsquo;s digital footprint by aggregating subdomains from multiple public intelligence
+                        sources. A high-velocity Go-based scanning core programmatically whitelists its own scanning
+                        nodes using Cloudflare API integration to perform deep, unhindered vulnerability probing and
+                        tech-stack fingerprinting concurrently across the top 100 network ports without triggering WAF
+                        blocks. The FastAPI backend processes raw application banners using regex heuristics,
+                        consolidating real-time findings into a centralized developer dashboard and structured JSON
+                        reports that deliver instant security alerts and actionable remediation steps.
+                    </p>
+                </article>
+
+                <!-- Project 2: KiOS -->
+                <article class="project-block">
+                    <h2 class="project-name">KiOS</h2>
+                    <p class="project-subtitle">Secure Linux Architecture</p>
+                    <p class="project-desc">
+                        Architected a highly optimized, Arch-based Linux distribution engineered from the kernel up to
+                        drastically reduce attack surfaces while maintaining maximum developer velocity. Developed custom
+                        Python and Bash automation frameworks to handle system localization, automated provisioning
+                        pipelines, and granular cryptographic storage layouts.
+                    </p>
+                </article>
+
+                <!-- Project 3: Zero-Day Enumeration -->
+                <article class="project-block">
+                    <h2 class="project-name">Zero-Day Enumeration: Telegram Animation Engine</h2>
+                    <p class="project-subtitle">rlottie Media Engine Fuzzing Research</p>
+                    <p class="project-desc">
+                        Independent remote research focused on stress-testing the rlottie media engine. Engineered an
+                        automated fuzzing harness utilizing AFL++ to execute systematic crash analysis, successfully
+                        isolating potential memory corruption vulnerabilities, input validation failures, and hidden
+                        memory leaks within third-party messaging integrations.
+                    </p>
+                </article>
+
+                <!-- Project 4: The-Donut -->
+                <article class="project-block">
+                    <h2 class="project-name">The-Donut</h2>
+                    <p class="project-subtitle">Terminal-Based 3D Rendering Engine in C++</p>
+                    <p class="project-desc">
+                        Creative systems project implementing a 3D donut animation rendered entirely in the terminal
+                        using C++. Developed raw mathematical rendering algorithms and strict memory management
+                        constraints without relying on external graphical or rendering libraries.
+                    </p>
+                </article>
+
+                <!-- Project 5: AD Exploitation -->
+                <article class="project-block">
+                    <h2 class="project-name">Active Directory Exploitation</h2>
+                    <p class="project-subtitle">HTB Environments &mdash; WingData &amp; Complex Corporate Labs</p>
+                    <p class="project-desc">
+                        Exploited and compromised complex corporate Windows network lab environments. Utilized Impacket,
+                        Mimikatz, and Rubeus to execute advanced Kerberos authentication manipulation, AD Certificate
+                        Services (AD&nbsp;CS) exploitation, and Pass-the-Ticket (PtT) / Pass-the-Hash (PtH) techniques
+                        to harvest credentials and achieve absolute domain dominance.
+                    </p>
+                </article>
+
+                <!-- Experience -->
+                <div class="experience-section">
+                    <span class="section-label">Professional Experience</span>
+                    <article class="experience-block">
+                        <span class="experience-company">LaloDev</span>
+                        <h3 class="experience-role">Software Engineer</h3>
+                        <span class="experience-dates">June 2025 &mdash; November 2025</span>
+                        <p class="experience-desc">
+                            Engineered and optimized backend software architectures within a formal Software Development
+                            Life Cycle (SDLC). Automated critical production infrastructure using Python, enforcing secure
+                            version control integrity and codebase hardening. Collaborated asynchronously with distributed
+                            teams to defend application logic against injection flaws and maximize server throughput.
+                        </p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- RIGHT COLUMN: Infinite Scrolling Tech Stack Track -->
+            <aside class="right-column">
+                <div class="track-header">
+                    <span class="track-header-label">
+                        <span class="track-pulse"></span> Technical Stack
+                    </span>
+                </div>
+                <div class="scroll-track-outer">
+                    <div class="scroll-track-inner">
+
+                        <!-- ===== SET 1 ===== -->
+                        <div class="track-category">Languages</div>
+                        <div class="track-item"><i class="bi bi-c-circle"></i><span>C</span></div>
+                        <div class="track-item"><i class="bi bi-cpu"></i><span>C++</span></div>
+                        <div class="track-item"><i class="bi bi-hash"></i><span>C#</span></div>
+                        <div class="track-item"><i class="bi bi-terminal"></i><span>Python</span></div>
+                        <div class="track-item"><i class="bi bi-code-square"></i><span>Go</span></div>
+                        <div class="track-item"><i class="bi bi-filetype-ts"></i><span>TypeScript</span></div>
+                        <div class="track-item"><i class="bi bi-filetype-js"></i><span>JavaScript</span></div>
+                        <div class="track-item"><i class="bi bi-filetype-php"></i><span>PHP</span></div>
+                        <div class="track-item"><i class="bi bi-database"></i><span>SQL</span></div>
+                        <div class="track-item"><i class="bi bi-terminal-fill"></i><span>Bash</span></div>
+
+                        <div class="track-category">Offensive Tools</div>
+                        <div class="track-item"><i class="bi bi-shield-slash"></i><span>Sliver C2</span></div>
+                        <div class="track-item"><i class="bi bi-radar"></i><span>Nmap</span></div>
+                        <div class="track-item"><i class="bi bi-incognito"></i><span>Burp Suite</span></div>
+                        <div class="track-item"><i class="bi bi-bug"></i><span>Metasploit</span></div>
+                        <div class="track-item"><i class="bi bi-box-seam"></i><span>Docker</span></div>
+                        <div class="track-item"><i class="bi bi-git"></i><span>Git</span></div>
+                        <div class="track-item"><i class="bi bi-ubuntu"></i><span>Linux / Arch</span></div>
+                        <div class="track-item"><i class="bi bi-eye-slash"></i><span>Tor</span></div>
+
+                        <div class="track-category">Frameworks &amp; Engines</div>
+                        <div class="track-item"><i class="bi bi-atom"></i><span>React</span></div>
+                        <div class="track-item"><i class="bi bi-lightning-charge"></i><span>FastAPI</span></div>
+                        <div class="track-item"><i class="bi bi-node-plus"></i><span>Node.js</span></div>
+                        <div class="track-item"><i class="bi bi-layers"></i><span>Blender</span></div>
+                        <div class="track-item"><i class="bi bi-controller"></i><span>Unreal Engine</span></div>
+                        <div class="track-item"><i class="bi bi-figma"></i><span>Figma</span></div>
+
+                        <!-- ===== SET 2 (DUPLICATE FOR SEAMLESS LOOP) ===== -->
+                        <div class="track-category">Languages</div>
+                        <div class="track-item"><i class="bi bi-c-circle"></i><span>C</span></div>
+                        <div class="track-item"><i class="bi bi-cpu"></i><span>C++</span></div>
+                        <div class="track-item"><i class="bi bi-hash"></i><span>C#</span></div>
+                        <div class="track-item"><i class="bi bi-terminal"></i><span>Python</span></div>
+                        <div class="track-item"><i class="bi bi-code-square"></i><span>Go</span></div>
+                        <div class="track-item"><i class="bi bi-filetype-ts"></i><span>TypeScript</span></div>
+                        <div class="track-item"><i class="bi bi-filetype-js"></i><span>JavaScript</span></div>
+                        <div class="track-item"><i class="bi bi-filetype-php"></i><span>PHP</span></div>
+                        <div class="track-item"><i class="bi bi-database"></i><span>SQL</span></div>
+                        <div class="track-item"><i class="bi bi-terminal-fill"></i><span>Bash</span></div>
+
+                        <div class="track-category">Offensive Tools</div>
+                        <div class="track-item"><i class="bi bi-shield-slash"></i><span>Sliver C2</span></div>
+                        <div class="track-item"><i class="bi bi-radar"></i><span>Nmap</span></div>
+                        <div class="track-item"><i class="bi bi-incognito"></i><span>Burp Suite</span></div>
+                        <div class="track-item"><i class="bi bi-bug"></i><span>Metasploit</span></div>
+                        <div class="track-item"><i class="bi bi-box-seam"></i><span>Docker</span></div>
+                        <div class="track-item"><i class="bi bi-git"></i><span>Git</span></div>
+                        <div class="track-item"><i class="bi bi-ubuntu"></i><span>Linux / Arch</span></div>
+                        <div class="track-item"><i class="bi bi-eye-slash"></i><span>Tor</span></div>
+
+                        <div class="track-category">Frameworks &amp; Engines</div>
+                        <div class="track-item"><i class="bi bi-atom"></i><span>React</span></div>
+                        <div class="track-item"><i class="bi bi-lightning-charge"></i><span>FastAPI</span></div>
+                        <div class="track-item"><i class="bi bi-node-plus"></i><span>Node.js</span></div>
+                        <div class="track-item"><i class="bi bi-layers"></i><span>Blender</span></div>
+                        <div class="track-item"><i class="bi bi-controller"></i><span>Unreal Engine</span></div>
+                        <div class="track-item"><i class="bi bi-figma"></i><span>Figma</span></div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <!-- ═══════════ FOOTER ═══════════ -->
+        <footer class="page-footer">
+            <span>PicasoTheDealer</span> &copy; 2026 &mdash; Addis Ababa, Ethiopia &mdash; Built with precision. No frameworks. No bloat.
+        </footer>
+    </div>
+</body>
+</html>
