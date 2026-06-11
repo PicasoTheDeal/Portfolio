@@ -321,77 +321,73 @@
 
         /* ── GALLERY SECTION ── */
         .gallery-section {
-    margin-top: 44px;
-    padding-top: 28px;
-    border-top: 1px solid var(--border-subtle);
-}
+            margin-top: 44px;
+            padding-top: 28px;
+            border-top: 1px solid var(--border-subtle);
+        }
 
-.gallery-desc {
-    font-size: 0.9rem;
-    font-weight: 400;
-    line-height: 1.7;
-    color: var(--text-secondary);
-    letter-spacing: 0.005em;
-    margin-bottom: 24px;
-    max-width: 620px;
-}
+        .gallery-desc {
+            font-size: 0.9rem;
+            font-weight: 400;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            letter-spacing: 0.005em;
+            margin-bottom: 24px;
+            max-width: 620px;
+        }
 
-.poster-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 16px;
-    align-items: start;
-}
+        .poster-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
 
-.poster-card {
-    border: 1px solid var(--border-default);
-    background-color: var(--bg-elevated);
-    overflow: hidden;
-    transition: border-color 0.25s ease;
-    position: relative;
-    cursor: default;
-}
+        .poster-card {
+            border: 1px solid var(--border-default);
+            background-color: var(--bg-elevated);
+            overflow: hidden;
+            aspect-ratio: auto;
+            transition: border-color 0.25s ease;
+            position: relative;
+            cursor: default;
+        }
 
-.poster-card:hover {
-    border-color: var(--accent);
-}
+        .poster-card:hover {
+            border-color: var(--accent);
+        }
 
-.poster-card img {
-    width: 100%;
-    height: auto;
-    display: block;
-    transition: opacity 0.3s ease;
-}
+        .poster-card img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            display: block;
+            transition: opacity 0.3s ease;
+        }
 
-.poster-card img::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-color: var(--bg-elevated);
-    z-index: 0;
-}
-
-.poster-card:has(img[src=""]),
-.poster-card:has(img:not([src])) {
-    aspect-ratio: 2 / 3;
-}
+        .poster-card img::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-color: var(--bg-elevated);
+            z-index: 0;
+        }
 
 /* Fallback for missing images: subtle inner indicator */
 .poster-card:has(img[src=""])::after,
-.poster-card:has(img:not([src]))::after {
-    content: 'Poster';
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
-    color: var(--text-tertiary);
-    text-transform: uppercase;
-    z-index: 1;
-}
+        .poster-card:has(img:not([src]))::after {
+            content: 'Poster';
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            z-index: 1;
+            }
 
 
         /* ── EXPERIENCE BLOCK ── */
