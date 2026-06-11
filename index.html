@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KIRUBEL YONAS — PicasoTheDealer</title>
+    <title>PicasoTheDeal — Portfolio</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -50,7 +50,6 @@
             counter-reset: project-counter;
         }
 
-        /* Subtle background texture — barely perceptible grid */
         body::before {
             content: '';
             position: fixed;
@@ -65,7 +64,6 @@
             background-position: center center;
         }
 
-        /* ── Page Wrapper ── */
         .page-wrapper {
             position: relative;
             z-index: 1;
@@ -99,24 +97,15 @@
             letter-spacing: -0.025em;
             line-height: 1.05;
             color: var(--text-primary);
-            margin-bottom: 6px;
-        }
-
-        .hero-handle {
-            font-family: var(--font-mono);
-            font-size: 1rem;
-            font-weight: 500;
-            color: var(--accent);
-            letter-spacing: 0.02em;
             margin-bottom: 18px;
-            display: inline-block;
             position: relative;
+            display: inline-block;
         }
 
-        .hero-handle::after {
+        .hero-name::after {
             content: '';
             position: absolute;
-            bottom: -2px;
+            bottom: -4px;
             left: 0;
             width: 100%;
             height: 1px;
@@ -129,6 +118,7 @@
             gap: 8px 24px;
             align-items: baseline;
             margin-bottom: 10px;
+            margin-top: 6px;
         }
 
         .hero-title {
@@ -329,6 +319,76 @@
             letter-spacing: 0.005em;
         }
 
+        /* ── GALLERY SECTION ── */
+        .gallery-section {
+            margin-top: 44px;
+            padding-top: 28px;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .gallery-desc {
+            font-size: 0.9rem;
+            font-weight: 400;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            letter-spacing: 0.005em;
+            margin-bottom: 24px;
+            max-width: 620px;
+        }
+
+        .poster-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .poster-card {
+            border: 1px solid var(--border-default);
+            background-color: var(--bg-elevated);
+            overflow: hidden;
+            aspect-ratio: 4 / 3;
+            transition: border-color 0.25s ease;
+            position: relative;
+            cursor: default;
+        }
+
+        .poster-card:hover {
+            border-color: var(--accent);
+        }
+
+        .poster-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: opacity 0.3s ease;
+        }
+
+        .poster-card img::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-color: var(--bg-elevated);
+            z-index: 0;
+        }
+
+        /* Fallback for missing images: subtle inner indicator */
+        .poster-card:has(img[src=""])::after,
+        .poster-card:has(img:not([src]))::after {
+            content: 'Poster';
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            z-index: 1;
+        }
+
         /* ── EXPERIENCE BLOCK ── */
         .experience-section {
             margin-top: 44px;
@@ -435,7 +495,6 @@
             position: relative;
         }
 
-        /* Clean sharp cutoffs at top and bottom — no gradients */
         .scroll-track-outer::before,
         .scroll-track-outer::after {
             content: '';
@@ -573,6 +632,9 @@
             .track-item span {
                 font-size: 0.65rem;
             }
+            .poster-grid {
+                gap: 12px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -624,6 +686,10 @@
             .section-label {
                 padding-left: 10px;
             }
+            .poster-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -665,6 +731,16 @@
             .track-item span {
                 font-size: 0.62rem;
             }
+            .poster-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .poster-card {
+                aspect-ratio: 16 / 10;
+            }
+            .gallery-desc {
+                font-size: 0.82rem;
+            }
         }
     </style>
 </head>
@@ -674,19 +750,18 @@
         <!-- ═══════════ HERO / INTRO ═══════════ -->
         <header class="hero">
             <span class="hero-overline">Portfolio / Dossier</span>
-            <h1 class="hero-name">KIRUBEL YONAS</h1>
-            <span class="hero-handle">PicasoTheDealer</span>
+            <h1 class="hero-name">PicasoTheDeal</h1>
             <div class="hero-title-block">
                 <span class="hero-title">Cybersecurity Researcher / Systems Engineer / Software Developer</span>
             </div>
             <span class="hero-location">Addis Ababa, Ethiopia &mdash; Open to Remote</span>
             <div class="hero-contact-row">
-                <a href="mailto:picasothedealer.com@gmail.com" class="hero-contact-link">
-                    <i class="bi bi-envelope"></i> picasothedealer.com@gmail.com
+                <a href="mailto:picasothedeal.com@gmail.com" class="hero-contact-link">
+                    <i class="bi bi-envelope"></i> picasothedeal.com@gmail.com
                 </a>
                 <span class="hero-contact-sep">|</span>
-                <a href="https://github.com/PicasoTheDealer" target="_blank" rel="noopener noreferrer" class="hero-contact-link">
-                    <i class="bi bi-github"></i> github.com/PicasoTheDealer
+                <a href="https://github.com/PicasoTheDeal" target="_blank" rel="noopener noreferrer" class="hero-contact-link">
+                    <i class="bi bi-github"></i> github.com/PicasoTheDeal
                 </a>
             </div>
 
@@ -707,7 +782,7 @@
         <!-- ═══════════ TWO-COLUMN MAIN CONTENT ═══════════ -->
         <div class="main-grid">
 
-            <!-- LEFT COLUMN: Projects + Experience -->
+            <!-- LEFT COLUMN: Projects + Gallery + Experience -->
             <section class="left-column">
 
                 <span class="section-label">Core Projects</span>
@@ -776,6 +851,35 @@
                         to harvest credentials and achieve absolute domain dominance.
                     </p>
                 </article>
+
+                <!-- ═══════════ GRAPHIC & POSTER DESIGN GALLERY ═══════════ -->
+                <div class="gallery-section">
+                    <span class="section-label">Graphic &amp; Poster Design Gallery</span>
+                    <p class="gallery-desc">
+                        Digital poster design, 3D assets, and high-fidelity visual layouts applying the same structural
+                        precision to graphic architecture as offensive security.
+                    </p>
+                    <div class="poster-grid">
+                        <div class="poster-card">
+                            <img src="assets/poster1.jpg" alt="Poster Design 01" loading="lazy">
+                        </div>
+                        <div class="poster-card">
+                            <img src="assets/poster2.jpg" alt="Poster Design 02" loading="lazy">
+                        </div>
+                        <div class="poster-card">
+                            <img src="assets/poster3.jpg" alt="Poster Design 03" loading="lazy">
+                        </div>
+                        <div class="poster-card">
+                            <img src="assets/poster4.jpg" alt="Poster Design 04" loading="lazy">
+                        </div>
+                        <div class="poster-card">
+                            <img src="assets/poster5.jpg" alt="Poster Design 05" loading="lazy">
+                        </div>
+                        <div class="poster-card">
+                            <img src="assets/poster6.jpg" alt="Poster Design 06" loading="lazy">
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Experience -->
                 <div class="experience-section">
@@ -872,7 +976,7 @@
 
         <!-- ═══════════ FOOTER ═══════════ -->
         <footer class="page-footer">
-            <span>PicasoTheDealer</span> &copy; 2026 &mdash; Addis Ababa, Ethiopia &mdash; Built with precision. No frameworks. No bloat.
+            <span>PicasoTheDeal</span> &copy; 2026 &mdash; Addis Ababa, Ethiopia &mdash; Built with precision. No frameworks. No bloat.
         </footer>
     </div>
 </body>
