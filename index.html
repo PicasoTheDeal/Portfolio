@@ -55,7 +55,7 @@
             position: fixed;
             inset: 0;
             pointer-events: none;
-         z-index: 0;
+            z-index: 0;
             opacity: 0.018;
             background-image:
                 linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
@@ -372,8 +372,8 @@
             z-index: 0;
         }
 
-/* Fallback for missing images: subtle inner indicator */
-.poster-card:has(img[src=""])::after,
+        /* Fallback for missing images: subtle inner indicator */
+        .poster-card:has(img[src=""])::after,
         .poster-card:has(img:not([src]))::after {
             content: 'Poster';
             position: absolute;
@@ -387,8 +387,7 @@
             color: var(--text-tertiary);
             text-transform: uppercase;
             z-index: 1;
-            }
-
+        }
 
         /* ── EXPERIENCE BLOCK ── */
         .experience-section {
@@ -745,8 +744,11 @@
         }
     </style>
 
-    <!-- ★ ADDED: make body transparent so the interactive canvas shows through -->
+    <!-- make body transparent so the interactive canvas shows through -->
     <style>
+        html {
+            background-color: var(--bg-primary);
+        }
         body {
             background-color: transparent;
         }
@@ -996,53 +998,119 @@
             function init() {
                 const canvas = document.createElement('canvas');
                 canvas.id = 'interactive-bg';
-
                 canvas.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none;';
                 document.body.appendChild(canvas);
 
                 const ctx = canvas.getContext('2d');
                 if (!ctx) return;
 
+                // ── Configuration ──────────────────────────
                 const GRID_SPACING = 40;
                 const DOT_RADIUS = 1.2;
                 const BASE_ALPHA = 0.15;
-                const MOUSE_RADIUS = 180;    
-                const MAX_OFFSET = 12;       
-                const SCROLL_WAVE_AMP = 3;   
+                const MOUSE_RADIUS = 180;
+                const MAX_OFFSET = 12;
+                const SCROLL_WAVE_AMP = 3;
                 const SCROLL_FREQ = 0.005;
                 const GRID_WAVE_FREQ = 0.02;
-                const ACCENT_COLOR = '91, 122, 158'; 
+                const ACCENT_COLOR = '91, 122, 158';
 
-                let dots = [];
+                // Web lines
+                const WEB_LINE_DIST = GRID_SPACING * 1.25; // connect neighbors within this distance
+                const WEB_LINE_COLOR = `rgba(${ACCENT_COLOR}, 0.05)`;
+                const WEB_LINE_WIDTH = 0.5;
+
+                // Floating wireframe cubes
+                const CUBE_COUNT = 6;                     // between 5 and 8
+                const CUBE_SIZE = 36;                     // edge length in world units
+                const CUBE_DISTANCE = 400;                 // fixed depth (away from camera)
+                const FOCAL_LENGTH = 400;                  // perspective scaling
+                const CUBE_LINE_COLOR = `rgba(${ACCENT_COLOR}, 0.12)`;
+                const CUBE_LINE_WIDTH = 0.8;
+
+                // ── State ─────────────────────────────────
+                let grid = [];          // 2D array of dot objects
+                let dots = [];          // flat reference (still works, but we'll use grid)
                 let mouseX = -1000, mouseY = -1000;
                 let scrollY = window.scrollY;
                 let width, height;
+                let cubes = [];
 
+                // Cube vertices (local coordinates)
+                const half = CUBE_SIZE / 2;
+                const cubeVertices = [
+                    [-half, -half, -half], [ half, -half, -half],
+                    [ half,  half, -half], [-half,  half, -half],
+                    [-half, -half,  half], [ half, -half,  half],
+                    [ half,  half,  half], [-half,  half,  half]
+                ];
+                // Cube edges (vertex index pairs)
+                const cubeEdges = [
+                    [0,1], [1,2], [2,3], [3,0], // back face
+                    [4,5], [5,6], [6,7], [7,4], // front face
+                    [0,4], [1,5], [2,6], [3,7]  // connecting edges
+                ];
+
+                // ── Resize & Grid Setup ────────────────────
                 function resize() {
                     width = window.innerWidth;
                     height = window.innerHeight;
                     canvas.width = width;
                     canvas.height = height;
 
-                    dots = [];
                     const cols = Math.ceil(width / GRID_SPACING) + 1;
                     const rows = Math.ceil(height / GRID_SPACING) + 1;
+
+                    grid = [];
+                    dots = [];
                     for (let row = 0; row < rows; row++) {
+                        grid[row] = [];
                         for (let col = 0; col < cols; col++) {
-                            dots.push({
+                            const dot = {
                                 baseX: col * GRID_SPACING,
                                 baseY: row * GRID_SPACING,
                                 offsetX: 0,
                                 offsetY: 0
-                            });
+                            };
+                            grid[row][col] = dot;
+                            dots.push(dot);
                         }
+                    }
+
+                    // (Re)initialize cubes on first run or if needed, but keep existing if already created
+                    if (cubes.length === 0) {
+                        initCubes();
                     }
                 }
 
-                window.addEventListener('resize', () => {
-                    resize();
-                });
+                function initCubes() {
+                    cubes = [];
+                    const scale = FOCAL_LENGTH / (FOCAL_LENGTH + CUBE_DISTANCE);
+                    // world bounds for wrapping (based on screen size)
+                    for (let i = 0; i < CUBE_COUNT; i++) {
+                        // random starting world coordinates (centered around screen center in world units)
+                        const maxWorldX = (width / 2 + CUBE_SIZE) / scale;
+                        const maxWorldY = (height / 2 + CUBE_SIZE) / scale;
+                        const cx = (Math.random() * 2 - 1) * maxWorldX * 0.8;
+                        const cy = (Math.random() * 2 - 1) * maxWorldY * 0.8;
+                        cubes.push({
+                            cx, cy,
+                            cz: CUBE_DISTANCE,
+                            vx: (Math.random() - 0.5) * 0.6,
+                            vy: (Math.random() - 0.5) * 0.6,
+                            rotX: Math.random() * Math.PI * 2,
+                            rotY: Math.random() * Math.PI * 2,
+                            rotZ: Math.random() * Math.PI * 2,
+                            rotSpeedX: (Math.random() - 0.5) * 0.008,
+                            rotSpeedY: (Math.random() - 0.5) * 0.008,
+                            rotSpeedZ: (Math.random() - 0.5) * 0.004
+                        });
+                    }
+                }
 
+                window.addEventListener('resize', resize);
+
+                // ── Input Listeners ────────────────────────
                 window.addEventListener('mousemove', (e) => {
                     mouseX = e.clientX;
                     mouseY = e.clientY;
@@ -1052,47 +1120,160 @@
                     scrollY = window.scrollY;
                 }, { passive: true });
 
+                // ── 3D Rotation Helpers ────────────────────
+                function rotatePoint(x, y, z, rotX, rotY, rotZ) {
+                    // Rotate around X axis
+                    let cos = Math.cos(rotX), sin = Math.sin(rotX);
+                    let y1 = y * cos - z * sin;
+                    let z1 = y * sin + z * cos;
+
+                    // Rotate around Y axis
+                    cos = Math.cos(rotY); sin = Math.sin(rotY);
+                    let x2 = x * cos + z1 * sin;
+                    let z2 = -x * sin + z1 * cos;
+
+                    // Rotate around Z axis
+                    cos = Math.cos(rotZ); sin = Math.sin(rotZ);
+                    let x3 = x2 * cos - y1 * sin;
+                    let y3 = x2 * sin + y1 * cos;
+
+                    return { x: x3, y: y3, z: z2 };
+                }
+
+                function project(x, y, z) {
+                    const scale = FOCAL_LENGTH / (FOCAL_LENGTH + z);
+                    return {
+                        sx: width / 2 + x * scale,
+                        sy: height / 2 + y * scale
+                    };
+                }
+
+                // ── Animation Loop ─────────────────────────
                 function animate() {
                     if (!ctx) return;
                     ctx.clearRect(0, 0, width, height);
 
-                    const now = performance.now(); 
-
+                    // ---- DOTS & MOUSE EFFECT ----
+                    const scrollOffset = scrollY;
                     for (let dot of dots) {
-                        
+                        // mouse interaction
                         const dx = dot.baseX - mouseX;
                         const dy = dot.baseY - mouseY;
                         const dist = Math.sqrt(dx * dx + dy * dy);
 
                         let targetOffX = 0, targetOffY = 0;
                         let mouseAlphaBoost = 0;
-
                         if (dist < MOUSE_RADIUS && dist > 0) {
-                            const factor = 1 - dist / MOUSE_RADIUS; 
+                            const factor = 1 - dist / MOUSE_RADIUS;
                             const angle = Math.atan2(dy, dx);
                             targetOffX = Math.cos(angle) * factor * MAX_OFFSET;
                             targetOffY = Math.sin(angle) * factor * MAX_OFFSET;
-                            mouseAlphaBoost = factor * 0.25; 
+                            mouseAlphaBoost = factor * 0.25;
                         }
 
-                        
+                        // smooth offset
                         dot.offsetX += (targetOffX - dot.offsetX) * 0.12;
                         dot.offsetY += (targetOffY - dot.offsetY) * 0.12;
 
-                        
-                        const waveX = Math.sin(dot.baseY * GRID_WAVE_FREQ + scrollY * SCROLL_FREQ) * SCROLL_WAVE_AMP;
-                        const waveY = Math.cos(dot.baseX * GRID_WAVE_FREQ + scrollY * SCROLL_FREQ) * SCROLL_WAVE_AMP;
+                        // wave displacement
+                        const waveX = Math.sin(dot.baseY * GRID_WAVE_FREQ + scrollOffset * SCROLL_FREQ) * SCROLL_WAVE_AMP;
+                        const waveY = Math.cos(dot.baseX * GRID_WAVE_FREQ + scrollOffset * SCROLL_FREQ) * SCROLL_WAVE_AMP;
 
                         const finalX = dot.baseX + dot.offsetX + waveX;
                         const finalY = dot.baseY + dot.offsetY + waveY;
 
+                        // draw dot
                         let alpha = BASE_ALPHA + mouseAlphaBoost;
                         if (alpha > 0.4) alpha = 0.4;
-
                         ctx.beginPath();
                         ctx.arc(finalX, finalY, DOT_RADIUS, 0, Math.PI * 2);
                         ctx.fillStyle = `rgba(${ACCENT_COLOR}, ${alpha})`;
                         ctx.fill();
+
+                        // store final position for web lines (temporary property)
+                        dot._finalX = finalX;
+                        dot._finalY = finalY;
+                    }
+
+                    // ---- DYNAMIC WEB LINES ----
+                    ctx.lineWidth = WEB_LINE_WIDTH;
+                    ctx.strokeStyle = WEB_LINE_COLOR;
+                    ctx.beginPath();
+                    for (let row = 0; row < grid.length; row++) {
+                        for (let col = 0; col < grid[row].length; col++) {
+                            const dot = grid[row][col];
+                            const x1 = dot._finalX, y1 = dot._finalY;
+
+                            // right neighbor
+                            if (col + 1 < grid[row].length) {
+                                const neighbor = grid[row][col + 1];
+                                const dx = neighbor._finalX - x1;
+                                const dy = neighbor._finalY - y1;
+                                if (dx * dx + dy * dy < WEB_LINE_DIST * WEB_LINE_DIST) {
+                                    ctx.moveTo(x1, y1);
+                                    ctx.lineTo(neighbor._finalX, neighbor._finalY);
+                                }
+                            }
+                            // bottom neighbor
+                            if (row + 1 < grid.length) {
+                                const neighbor = grid[row + 1][col];
+                                const dx = neighbor._finalX - x1;
+                                const dy = neighbor._finalY - y1;
+                                if (dx * dx + dy * dy < WEB_LINE_DIST * WEB_LINE_DIST) {
+                                    ctx.moveTo(x1, y1);
+                                    ctx.lineTo(neighbor._finalX, neighbor._finalY);
+                                }
+                            }
+                        }
+                    }
+                    ctx.stroke();
+
+                    // ---- FLOATING WIREFRAME CUBES ----
+                    const scaleFactor = FOCAL_LENGTH / (FOCAL_LENGTH + CUBE_DISTANCE);
+                    const worldMargin = CUBE_SIZE * 1.5; // wrap margin in world units
+                    const maxWorldX = (width / 2 + worldMargin) / scaleFactor;
+                    const maxWorldY = (height / 2 + worldMargin) / scaleFactor;
+
+                    ctx.lineWidth = CUBE_LINE_WIDTH;
+                    ctx.strokeStyle = CUBE_LINE_COLOR;
+
+                    for (let cube of cubes) {
+                        // update rotation
+                        cube.rotX += cube.rotSpeedX;
+                        cube.rotY += cube.rotSpeedY;
+                        cube.rotZ += cube.rotSpeedZ;
+
+                        // drift
+                        cube.cx += cube.vx;
+                        cube.cy += cube.vy;
+
+                        // wrap around screen edges (world coordinate wrap)
+                        if (cube.cx > maxWorldX) cube.cx = -maxWorldX;
+                        if (cube.cx < -maxWorldX) cube.cx = maxWorldX;
+                        if (cube.cy > maxWorldY) cube.cy = -maxWorldY;
+                        if (cube.cy < -maxWorldY) cube.cy = maxWorldY;
+
+                        // compute transformed vertices
+                        const transformed = cubeVertices.map(v => {
+                            const rotated = rotatePoint(v[0], v[1], v[2], cube.rotX, cube.rotY, cube.rotZ);
+                            // translate to cube world position
+                            const wx = rotated.x + cube.cx;
+                            const wy = rotated.y + cube.cy;
+                            const wz = rotated.z + cube.cz;
+                            return project(wx, wy, wz);
+                        });
+
+                        // draw edges
+                        ctx.beginPath();
+                        for (let edge of cubeEdges) {
+                            const p1 = transformed[edge[0]];
+                            const p2 = transformed[edge[1]];
+                            if (p1 && p2) { // always true
+                                ctx.moveTo(p1.sx, p1.sy);
+                                ctx.lineTo(p2.sx, p2.sy);
+                            }
+                        }
+                        ctx.stroke();
                     }
 
                     requestAnimationFrame(animate);
@@ -1104,4 +1285,4 @@
         })();
     </script>
 </body>
-    </html>
+</html>
