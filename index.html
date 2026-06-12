@@ -744,6 +744,13 @@
             }
         }
     </style>
+
+    <!-- ★ ADDED: make body transparent so the interactive canvas shows through -->
+    <style>
+        body {
+            background-color: transparent;
+        }
+    </style>
 </head>
 <body>
     <div class="page-wrapper">
@@ -976,5 +983,125 @@
             <span>PicasoTheDeal</span> &copy; 2026 &mdash; Addis Ababa, Ethiopia &mdash; Built with precision. No frameworks. No bloat.
         </footer>
     </div>
+
+    <!-- Interactive background effect (vanilla JS / canvas, no frameworks) -->
+    <script>
+        (function() {
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+
+            function init() {
+                const canvas = document.createElement('canvas');
+                canvas.id = 'interactive-bg';
+
+                canvas.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none;';
+                document.body.appendChild(canvas);
+
+                const ctx = canvas.getContext('2d');
+                if (!ctx) return;
+
+                const GRID_SPACING = 40;
+                const DOT_RADIUS = 1.2;
+                const BASE_ALPHA = 0.15;
+                const MOUSE_RADIUS = 180;    
+                const MAX_OFFSET = 12;       
+                const SCROLL_WAVE_AMP = 3;   
+                const SCROLL_FREQ = 0.005;
+                const GRID_WAVE_FREQ = 0.02;
+                const ACCENT_COLOR = '91, 122, 158'; 
+
+                let dots = [];
+                let mouseX = -1000, mouseY = -1000;
+                let scrollY = window.scrollY;
+                let width, height;
+
+                function resize() {
+                    width = window.innerWidth;
+                    height = window.innerHeight;
+                    canvas.width = width;
+                    canvas.height = height;
+
+                    dots = [];
+                    const cols = Math.ceil(width / GRID_SPACING) + 1;
+                    const rows = Math.ceil(height / GRID_SPACING) + 1;
+                    for (let row = 0; row < rows; row++) {
+                        for (let col = 0; col < cols; col++) {
+                            dots.push({
+                                baseX: col * GRID_SPACING,
+                                baseY: row * GRID_SPACING,
+                                offsetX: 0,
+                                offsetY: 0
+                            });
+                        }
+                    }
+                }
+
+                window.addEventListener('resize', () => {
+                    resize();
+                });
+
+                window.addEventListener('mousemove', (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                }, { passive: true });
+
+                window.addEventListener('scroll', () => {
+                    scrollY = window.scrollY;
+                }, { passive: true });
+
+                function animate() {
+                    if (!ctx) return;
+                    ctx.clearRect(0, 0, width, height);
+
+                    const now = performance.now(); 
+
+                    for (let dot of dots) {
+                        
+                        const dx = dot.baseX - mouseX;
+                        const dy = dot.baseY - mouseY;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+
+                        let targetOffX = 0, targetOffY = 0;
+                        let mouseAlphaBoost = 0;
+
+                        if (dist < MOUSE_RADIUS && dist > 0) {
+                            const factor = 1 - dist / MOUSE_RADIUS; 
+                            const angle = Math.atan2(dy, dx);
+                            targetOffX = Math.cos(angle) * factor * MAX_OFFSET;
+                            targetOffY = Math.sin(angle) * factor * MAX_OFFSET;
+                            mouseAlphaBoost = factor * 0.25; 
+                        }
+
+                        
+                        dot.offsetX += (targetOffX - dot.offsetX) * 0.12;
+                        dot.offsetY += (targetOffY - dot.offsetY) * 0.12;
+
+                        
+                        const waveX = Math.sin(dot.baseY * GRID_WAVE_FREQ + scrollY * SCROLL_FREQ) * SCROLL_WAVE_AMP;
+                        const waveY = Math.cos(dot.baseX * GRID_WAVE_FREQ + scrollY * SCROLL_FREQ) * SCROLL_WAVE_AMP;
+
+                        const finalX = dot.baseX + dot.offsetX + waveX;
+                        const finalY = dot.baseY + dot.offsetY + waveY;
+
+                        let alpha = BASE_ALPHA + mouseAlphaBoost;
+                        if (alpha > 0.4) alpha = 0.4;
+
+                        ctx.beginPath();
+                        ctx.arc(finalX, finalY, DOT_RADIUS, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(${ACCENT_COLOR}, ${alpha})`;
+                        ctx.fill();
+                    }
+
+                    requestAnimationFrame(animate);
+                }
+
+                resize();
+                requestAnimationFrame(animate);
+            }
+        })();
+    </script>
 </body>
-</html>
+    </html>
