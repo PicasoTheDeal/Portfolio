@@ -985,7 +985,6 @@
                 const ctx = canvas.getContext('2d');
                 if (!ctx) return;
 
-                // ── Configuration ──────────────────────────
                 const GRID_SPACING = 40;
                 const DOT_RADIUS = 1.2;
                 const BASE_ALPHA = 0.22;
@@ -995,15 +994,12 @@
                 const SCROLL_FREQ = 0.005;
                 const GRID_WAVE_FREQ = 0.02;
                 
-                // Whitish theme tone color matrix tint matching your CSS text-primary color (#e6edf3)
                 const WHITISH_COLOR = '230, 237, 243';
 
-                // Web lines (Slightly boosted parameters for high visibility on dark theme)
                 const WEB_LINE_DIST = GRID_SPACING * 1.4; 
                 const WEB_LINE_COLOR = `rgba(${WHITISH_COLOR}, 0.25)`;
                 const WEB_LINE_WIDTH = 1.0;
 
-                // Floating wireframe cubes (Crisp vector matrices)
                 const CUBE_COUNT = 11;                     
                 const CUBE_SIZE = 42;                     
                 const CUBE_DISTANCE = 400;                 
@@ -1011,7 +1007,6 @@
                 const CUBE_LINE_COLOR = `rgba(${WHITISH_COLOR}, 0.18)`;
                 const CUBE_LINE_WIDTH = 1.0;
 
-                // ── State ─────────────────────────────────
                 let grid = [];          
                 let dots = [];          
                 let mouseX = -1000, mouseY = -1000;
@@ -1019,7 +1014,6 @@
                 let width, height;
                 let cubes = [];
 
-                // Cube vertices (local coordinates)
                 const half = CUBE_SIZE / 2;
                 const cubeVertices = [
                     [-half, -half, -half], [ half, -half, -half],
@@ -1027,14 +1021,12 @@
                     [-half, -half,  half], [ half, -half,  half],
                     [ half,  half,  half], [-half,  half,  half]
                 ];
-                // Cube edges (vertex index pairs)
                 const cubeEdges = [
                     [0,1], [1,2], [2,3], [3,0], // back face
                     [4,5], [5,6], [6,7], [7,4], // front face
                     [0,4], [1,5], [2,6], [3,7]  // connecting edges
                 ];
 
-                // ── Resize & Grid Setup ────────────────────
                 function resize() {
                     width = window.innerWidth;
                     height = window.innerHeight;
@@ -1086,7 +1078,6 @@
 
                 window.addEventListener('resize', resize);
 
-                // ── Input Listeners ────────────────────────
                 window.addEventListener('mousemove', (e) => {
                     mouseX = e.clientX;
                     mouseY = e.clientY;
@@ -1096,19 +1087,16 @@
                     scrollY = window.scrollY;
                 }, { passive: true });
 
-                // ── 3D Rotation Helpers ────────────────────
                 function rotatePoint(x, y, z, rotX, rotY, rotZ) {
                     // Rotate around X axis
                     let cos = Math.cos(rotX), sin = Math.sin(rotX);
                     let y1 = y * cos - z * sin;
                     let z1 = y * sin + z * cos;
 
-                    // Rotate around Y axis
                     cos = Math.cos(rotY); sin = Math.sin(rotY);
                     let x2 = x * cos + z1 * sin;
                     let z2 = -x * sin + z1 * cos;
 
-                    // Rotate around Z axis
                     cos = Math.cos(rotZ); sin = Math.sin(rotZ);
                     let x3 = x2 * cos - y1 * sin;
                     let y3 = x2 * sin + y1 * cos;
@@ -1124,12 +1112,10 @@
                     };
                 }
 
-                // ── Animation Loop ─────────────────────────
                 function animate() {
                     if (!ctx) return;
                     ctx.clearRect(0, 0, width, height);
 
-                   // ---- DOTS & MOUSE EFFECT ----
                     const scrollOffset = scrollY;
                     for (let dot of dots) {
                         const dx = dot.baseX - mouseX;
@@ -1163,7 +1149,6 @@
                         ctx.fill();
                     }
 
-                    // ---- DYNAMIC WEB LINES (CONSTELLATION MESH) ----
                     ctx.lineWidth = WEB_LINE_WIDTH;
                     ctx.strokeStyle = WEB_LINE_COLOR;
                     ctx.beginPath();
@@ -1186,7 +1171,6 @@
                     }
                     ctx.stroke();
 
-                    // ---- FLOATING WIREFRAME CUBES ----
                     const scaleFactor = FOCAL_LENGTH / (FOCAL_LENGTH + CUBE_DISTANCE);
                     const worldMargin = CUBE_SIZE * 1.5; 
                     const maxWorldX = (width / 2 + worldMargin) / scaleFactor;
