@@ -1439,7 +1439,7 @@ async function runTerminalLoop() {
 
         termBody.innerHTML += `<br><span class="command">~</span> $ <span class="cursor-blink"></span>`;
         
-        await sleep(5000);
+        await sleep(10000);
 
         termBody.innerHTML = `<span class="command">~</span> $ clear`;
         await sleep(400);
