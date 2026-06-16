@@ -214,7 +214,7 @@
             flex-direction: column;
             overflow: hidden;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            margin-top: 48px;
+            margin-top: 40px;
         }
 
         .term-header {
@@ -289,7 +289,7 @@
         .narrative-section {
             margin-top: 36px;
             padding-top: 28px;
-            max-width: 680px;
+            max-width: 50%;
         }
 
         .narrative-label {
@@ -1404,13 +1404,13 @@ async function fetchGitHubData() {
         }));
     } catch (err) {
         cachedRepos = [
-            { name: 'KASCVE', lang: 'Python' },
-            { name: 'The-Donut', lang: 'C++' },
-            { name: 'HTB-Labs', lang: 'Markdown' },
-            { name: 'telegram-rlottie-vulnerability', lang: 'CMake' },
-            { name: 'The-Doom', lang: 'C++' },
-            { name: 'KiOS', lang: 'Shell' }
-        ];
+		    { name: 'KASCVE-PROJECT', lang: 'Python,C++, GO - (private)' },
+    		{ name: 'The-Donut', lang: 'C++' },
+    		{ name: 'HTB-Labs', lang: 'Markdown' },
+    		{ name: 'telegram-rlottie-vulnerability', lang: 'CMake, C++' },
+    		{ name: 'AUR-threat-mitigator', lang: 'Python' },
+			{ name: 'KiOS', lang: 'Shell, C++, C, Assembly, ...'}
+		];
     }
 }
 
