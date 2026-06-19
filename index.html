@@ -9,9 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #0d1117;
-            --bg-deeper: #05070a;
-            --bg-elevated: #111820;
+            --bg-primary: #0f0f0f;
+            --bg-deeper: #0f0f0f;
+            --bg-elevated: #0f0f0f;
             --border-default: #1c2333;
             --border-subtle: #161d28;
             --text-primary: #e6edf3;
@@ -201,8 +201,7 @@
         }
 
          .glass-terminal {
-            width: 100%;
-            max-width: var(--track-width);
+            width: 35%
             height: 300px;
             background-color: rgba(13, 17, 23, 0.45);
             backdrop-filter: blur(10px);
@@ -289,7 +288,7 @@
         .narrative-section {
             margin-top: 36px;
             padding-top: 28px;
-            max-width: 50%;
+            max-width: 65%;
         }
 
         .narrative-label {
@@ -914,6 +913,18 @@
                     </p>
                 </article>
 
+				 <article class="project-block">
+                    <h2 class="project-name">AUR-scanner</h2>
+                    <p class="project-subtitle">
+						A lightweight offline static analysis utility to scan local ALPM metadata &amp;
+						AUR helper build caches for compromised packages and suspicious code patterns.
+					</p>
+                    <p class="project-desc">
+                       A lightweight offline static analysis tool to scan local ALPM metadata and AUR helper
+					   build caches for heuristic anomalies and known threat signatures.
+                    </p>
+                </article>
+
                 <article class="project-block">
                     <h2 class="project-name">KiOS</h2>
                     <p class="project-subtitle">Secure Linux Architecture</p>
@@ -1404,11 +1415,11 @@ async function fetchGitHubData() {
         }));
     } catch (err) {
         cachedRepos = [
+			{ name: 'AUR-scanner', lang: 'Python'},
 		    { name: 'KASCVE-PROJECT', lang: 'Python,C++, GO - (private)' },
     		{ name: 'The-Donut', lang: 'C++' },
     		{ name: 'HTB-Labs', lang: 'Markdown' },
     		{ name: 'telegram-rlottie-vulnerability', lang: 'CMake, C++' },
-    		{ name: 'AUR-threat-mitigator', lang: 'Python' },
 			{ name: 'KiOS', lang: 'Shell, C++, C, Assembly, ...'}
 		];
     }
