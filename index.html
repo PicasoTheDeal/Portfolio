@@ -73,7 +73,7 @@
             padding: 0 48px;
         }
 
-        /* ── HERO SECTION ── */
+        /* HERO SECTION */
         .hero {
             padding: 80px 0 56px;
             position: relative;
@@ -272,7 +272,7 @@
 
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-        /* ── RESPONSIVE RESPONSES FOR TERMINAL ── */
+        /* RESPONSIVE RESPONSES FOR TERMINAL */
         @media (max-width: 1100px) {
             .hero-container {
                 grid-template-columns: 1fr;
@@ -284,7 +284,107 @@
                 display: none !important; 
             }
         }
-        /* ── NARRATIVE ── */
+
+		/* BLOG */
+		.blog-preview-card {
+    background-color: #0b0b0b;
+    border: 1px solid #1c2333;
+    border-radius: 4px;
+    padding: 24px;
+    margin: 20px 0;
+    max-width: 480px;
+    font-family: 'JetBrains Mono', monospace;
+    position: relative;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.blog-preview-card:hover {
+    border-color: #5b7a9e;
+    box-shadow: 0 0 15px rgba(91, 122, 158, 0.04);
+}
+
+.card-terminal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #161d28;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+}
+
+.feed-label {
+    font-size: 0.72rem;
+    color: #8b949e;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.live-pulse {
+    width: 6px;
+    height: 6px;
+    background-color: #3fb950;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #3fb950;
+    animation: beaconPulse 1.8s infinite ease-in-out;
+}
+
+@keyframes beaconPulse {
+    0% { transform: scale(0.9); opacity: 0.4; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(0.9); opacity: 0.4; }
+}
+
+.scanning-status {
+    font-size: 0.85rem;
+    color: #8b949e;
+    padding: 8px 0;
+}
+
+.node-meta {
+    font-size: 0.7rem;
+    color: #8b949e;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.tag-highlight {
+    color: #5b7a9e;
+    font-weight: 600;
+    margin-right: 6px;
+}
+
+.node-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #e6edf3;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.node-excerpt {
+    font-size: 0.85rem;
+    color: #b1bac4;
+    margin-bottom: 18px;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.node-action-btn {
+    font-size: 0.75rem;
+    color: #5b7a9e;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-block;
+    transition: color 0.2s ease;
+}
+
+.node-action-btn:hover {
+    color: #e6edf3;
+}
+        /* NARRATIVE */
         .narrative-section {
             margin-top: 36px;
             padding-top: 28px;
@@ -310,7 +410,7 @@
             letter-spacing: 0.005em;
         }
 
-        /* ── TWO-COLUMN LAYOUT ── */
+        /* TWO-COLUMN LAYOUT */
         .main-grid {
             display: grid;
             grid-template-columns: 1fr var(--track-width);
@@ -336,7 +436,7 @@
             flex-direction: column;
         }
 
-        /* ── SECTION HEADERS ── */
+        /* SECTION HEADERS */
         .section-label {
             font-family: var(--font-mono);
             font-size: 0.68rem;
@@ -361,7 +461,7 @@
             background-color: var(--accent-subtle);
         }
 
-        /* ── PROJECT BLOCKS ── */
+        /* PROJECT BLOCKS */
         .project-block {
             position: relative;
             padding: 28px 0 28px 18px;
@@ -413,7 +513,7 @@
             letter-spacing: 0.005em;
         }
 
-        /* ── GALLERY SECTION ── */
+        /* GALLERY SECTION */
         .gallery-section {
             margin-top: 44px;
             padding-top: 28px;
@@ -482,7 +582,7 @@
             z-index: 1;
         }
 
-        /* ── EXPERIENCE BLOCK ── */
+        /* EXPERIENCE BLOCK */
         .experience-section {
             margin-top: 44px;
             padding-top: 28px;
@@ -688,7 +788,7 @@
             color: var(--text-primary);
         }
 
-        /* ── FOOTER ── */
+        /* FOOTER */
         .page-footer {
             padding: 24px 0;
             text-align: left;
@@ -702,7 +802,7 @@
             color: var(--accent);
         }
 	
-        /* ── RESPONSIVE ── */
+        /* RESPONSIVE */
         @media (max-width: 1100px) {
             .main-grid {
                 grid-template-columns: 1fr 280px;
@@ -902,6 +1002,25 @@
                     />
                 </span>
                 <span class="section-label">Core Projects</span>
+
+				<div class="blog-preview-card">
+    				<div class="card-terminal-header">
+        				<span class="feed-label"><i class="bi bi-broadcast"></i> Live Log Stream</span>
+       					 <span class="live-pulse"></span>
+   					</div>
+    
+   					<div id="blog-telemetry-status" class="scanning-status">[ querying remote log manifest... ]</div>
+    
+    				<div id="blog-telemetry-payload" style="display: none;">
+        				<span class="node-meta">
+            				<span id="blog-node-tag" class="tag-highlight"></span> 
+            				<span id="blog-node-meta-details"></span>
+        				</span>
+        				<h3 id="blog-node-title" class="node-title"></h3>
+        				<p id="blog-node-excerpt" class="node-excerpt"></p>
+        				<a href="#" id="blog-node-link" target="_blank" class="node-action-btn">Connect to Frame Node ──►</a>
+    				</div>
+				</div>
 				
 				<article class="project-block">
                     <a href="https://github.com/PicasoTheDeal/dSBOM-engine" target="_blank" rel="noopener noreferrer" style="display: block; text-decoration: none; color: inherit; height: 100%;">
@@ -1185,261 +1304,259 @@
         </footer>
     </div>
     <script>
-        (function() {
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', init);
-            } else {
-                init();
+(function() {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+
+    function init() {
+        if (window.innerWidth <= 1100) return;
+
+        const canvas = document.createElement('canvas');
+        canvas.id = 'interactive-bg';
+        canvas.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none;';
+        document.body.appendChild(canvas);
+
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        const GRID_SPACING = 40;
+        const DOT_RADIUS = 1.2;
+        const BASE_ALPHA = 0.22;
+        const MOUSE_RADIUS = 180;
+        const MAX_OFFSET = 12;
+        const SCROLL_WAVE_AMP = 3;
+        const SCROLL_FREQ = 0.005;
+        const GRID_WAVE_FREQ = 0.02;
+        
+        const WHITISH_COLOR = '255, 255, 255';
+
+        const WEB_LINE_DIST = GRID_SPACING * 1.4; 
+        const WEB_LINE_COLOR = `rgba(${WHITISH_COLOR}, 0.30)`;
+        const WEB_LINE_WIDTH = 1.0;
+
+        const CUBE_COUNT = 11;                     
+        const CUBE_SIZE = 42;                     
+        const CUBE_DISTANCE = 400;                 
+        const FOCAL_LENGTH = 400;                  
+        const CUBE_LINE_COLOR = `rgba(${WHITISH_COLOR}, 0.20)`;
+        const CUBE_LINE_WIDTH = 1.0;
+
+        let grid = [];          
+        let dots = [];          
+        let mouseX = -1000, mouseY = -1000;
+        let scrollY = window.scrollY;
+        let width, height;
+        let cubes = [];
+
+        const half = CUBE_SIZE / 2;
+        const cubeVertices = [
+            [-half, -half, -half], [ half, -half, -half],
+            [ half,  half, -half], [-half,  half, -half],
+            [-half, -half,  half], [ half, -half,  half],
+            [ half,  half,  half], [-half,  half,  half]
+        ];
+        const cubeEdges = [
+            [0,1], [1,2], [2,3], [3,0], 
+            [4,5], [5,6], [6,7], [7,4], 
+            [0,4], [1,5], [2,6], [3,7]  
+        ];
+
+        function resize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+
+            const densityFactor = 4500;
+            const totalDots = Math.floor((width * height) / densityFactor);
+
+            grid = []; 
+            dots = [];
+            
+            for (let i = 0; i < totalDots; i++) {
+                dots.push({
+                    baseX: Math.random() * width,
+                    baseY: Math.random() * height,
+                    offsetX: 0,
+                    offsetY: 0
+                });
             }
 
-            function init() {
-
-                if (window.innerWidth <= 1100) return;
-
-                const canvas = document.createElement('canvas');
-                canvas.id = 'interactive-bg';
-                canvas.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none;';
-                document.body.appendChild(canvas);
-
-                const ctx = canvas.getContext('2d');
-                if (!ctx) return;
-
-                const GRID_SPACING = 40;
-                const DOT_RADIUS = 1.2;
-                const BASE_ALPHA = 0.22;
-                const MOUSE_RADIUS = 180;
-                const MAX_OFFSET = 12;
-                const SCROLL_WAVE_AMP = 3;
-                const SCROLL_FREQ = 0.005;
-                const GRID_WAVE_FREQ = 0.02;
-                
-                const WHITISH_COLOR = '255, 255, 255';
-
-                const WEB_LINE_DIST = GRID_SPACING * 1.4; 
-                const WEB_LINE_COLOR = `rgba(${WHITISH_COLOR}, 0.30)`;
-                const WEB_LINE_WIDTH = 1.0;
-
-                const CUBE_COUNT = 11;                     
-                const CUBE_SIZE = 42;                     
-                const CUBE_DISTANCE = 400;                 
-                const FOCAL_LENGTH = 400;                  
-                const CUBE_LINE_COLOR = `rgba(${WHITISH_COLOR}, 0.20)`;
-                const CUBE_LINE_WIDTH = 1.0;
-
-                let grid = [];          
-                let dots = [];          
-                let mouseX = -1000, mouseY = -1000;
-                let scrollY = window.scrollY;
-                let width, height;
-                let cubes = [];
-
-                const half = CUBE_SIZE / 2;
-                const cubeVertices = [
-                    [-half, -half, -half], [ half, -half, -half],
-                    [ half,  half, -half], [-half,  half, -half],
-                    [-half, -half,  half], [ half, -half,  half],
-                    [ half,  half,  half], [-half,  half,  half]
-                ];
-                const cubeEdges = [
-                    [0,1], [1,2], [2,3], [3,0], 
-                    [4,5], [5,6], [6,7], [7,4], 
-                    [0,4], [1,5], [2,6], [3,7]  
-                ];
-
-                function resize() {
-                    width = window.innerWidth;
-                    height = window.innerHeight;
-                    canvas.width = width;
-                    canvas.height = height;
-
-                    const densityFactor = 4500;
-                    const totalDots = Math.floor((width * height) / densityFactor);
-
-                    grid = []; 
-                    dots = [];
-                    
-                    for (let i = 0; i < totalDots; i++) {
-                        dots.push({
-                            baseX: Math.random() * width,
-                            baseY: Math.random() * height,
-                            offsetX: 0,
-                            offsetY: 0
-                        });
-                    }
-
-                    if (cubes.length === 0) {
-                        initCubes();
-                    }
-                }
-
-                function initCubes() {
-                    cubes = [];
-                    const scale = FOCAL_LENGTH / (FOCAL_LENGTH + CUBE_DISTANCE);
-                    for (let i = 0; i < CUBE_COUNT; i++) {
-                        const maxWorldX = (width / 2 + CUBE_SIZE) / scale;
-                        const maxWorldY = (height / 2 + CUBE_SIZE) / scale;
-                        const cx = (Math.random() * 2 - 1) * maxWorldX * 0.8;
-                        const cy = (Math.random() * 2 - 1) * maxWorldY * 0.8;
-                        cubes.push({
-                            cx, cy,
-                            cz: CUBE_DISTANCE,
-                            vx: (Math.random() - 0.5) * 0.5,
-                            vy: (Math.random() - 0.5) * 0.5,
-                            rotX: Math.random() * Math.PI * 2,
-                            rotY: Math.random() * Math.PI * 2,
-                            rotZ: Math.random() * Math.PI * 2,
-                            rotSpeedX: (Math.random() - 0.5) * 0.006,
-                            rotSpeedY: (Math.random() - 0.5) * 0.006,
-                            rotSpeedZ: (Math.random() - 0.5) * 0.003
-                        });
-                    }
-                }
-
-                window.addEventListener('resize', resize);
-
-                window.addEventListener('mousemove', (e) => {
-                    mouseX = e.clientX;
-                    mouseY = e.clientY;
-                }, { passive: true });
-
-                window.addEventListener('scroll', () => {
-                    scrollY = window.scrollY;
-                }, { passive: true });
-
-                function rotatePoint(x, y, z, rotX, rotY, rotZ) {
-                    // Rotate around X axis
-                    let cos = Math.cos(rotX), sin = Math.sin(rotX);
-                    let y1 = y * cos - z * sin;
-                    let z1 = y * sin + z * cos;
-
-                    cos = Math.cos(rotY); sin = Math.sin(rotY);
-                    let x2 = x * cos + z1 * sin;
-                    let z2 = -x * sin + z1 * cos;
-
-                    cos = Math.cos(rotZ); sin = Math.sin(rotZ);
-                    let x3 = x2 * cos - y1 * sin;
-                    let y3 = x2 * sin + y1 * cos;
-
-                    return { x: x3, y: y3, z: z2 };
-                }
-
-                function project(x, y, z) {
-                    const scale = FOCAL_LENGTH / (FOCAL_LENGTH + z);
-                    return {
-                        sx: width / 2 + x * scale,
-                        sy: height / 2 + y * scale
-                    };
-                }
-
-                function animate() {
-                    if (!ctx) return;
-                    ctx.clearRect(0, 0, width, height);
-
-                    const scrollOffset = scrollY;
-                    for (let dot of dots) {
-                        const dx = dot.baseX - mouseX;
-                        const dy = dot.baseY - mouseY;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-
-                        let targetOffX = 0, targetOffY = 0;
-                        let mouseAlphaBoost = 0;
-                        if (dist < MOUSE_RADIUS && dist > 0) {
-                            const factor = 1 - dist / MOUSE_RADIUS;
-                            const angle = Math.atan2(dy, dx);
-                            targetOffX = Math.cos(angle) * factor * MAX_OFFSET;
-                            targetOffY = Math.sin(angle) * factor * MAX_OFFSET;
-                            mouseAlphaBoost = factor * 0.25;
-                        }
-
-                        dot.offsetX += (targetOffX - dot.offsetX) * 0.12;
-                        dot.offsetY += (targetOffY - dot.offsetY) * 0.12;
-
-                        const waveX = Math.sin(dot.baseY * GRID_WAVE_FREQ + scrollOffset * SCROLL_FREQ) * SCROLL_WAVE_AMP;
-                        const waveY = Math.cos(dot.baseX * GRID_WAVE_FREQ + scrollOffset * SCROLL_FREQ) * SCROLL_WAVE_AMP;
-
-                        dot._finalX = dot.baseX + dot.offsetX + waveX;
-                        dot._finalY = dot.baseY + dot.offsetY + waveY;
-
-                        let alpha = BASE_ALPHA + mouseAlphaBoost;
-                        if (alpha > 0.4) alpha = 0.4;
-                        ctx.beginPath();
-                        ctx.arc(dot._finalX, dot._finalY, DOT_RADIUS, 0, Math.PI * 2);
-                        ctx.fillStyle = `rgba(${WHITISH_COLOR}, ${alpha})`;
-                        ctx.fill();
-                    }
-
-                    ctx.lineWidth = WEB_LINE_WIDTH;
-                    ctx.strokeStyle = WEB_LINE_COLOR;
-                    ctx.beginPath();
-                    
-                    const maxDistSq = 115 * 115; 
-                    
-                    for (let i = 0; i < dots.length; i++) {
-                        const dotA = dots[i];
-                        for (let j = i + 1; j < dots.length; j++) {
-                            const dotB = dots[j];
-                            const dx = dotB._finalX - dotA._finalX;
-                            const dy = dotB._finalY - dotA._finalY;
-                            const distSq = dx * dx + dy * dy;
-                            
-                            if (distSq < maxDistSq) {
-                                ctx.moveTo(dotA._finalX, dotA._finalY);
-                                ctx.lineTo(dotB._finalX, dotB._finalY);
-                            }
-                        }
-                    }
-                    ctx.stroke();
-
-                    const scaleFactor = FOCAL_LENGTH / (FOCAL_LENGTH + CUBE_DISTANCE);
-                    const worldMargin = CUBE_SIZE * 1.5; 
-                    const maxWorldX = (width / 2 + worldMargin) / scaleFactor;
-                    const maxWorldY = (height / 2 + worldMargin) / scaleFactor;
-
-                    ctx.lineWidth = CUBE_LINE_WIDTH;
-                    ctx.strokeStyle = CUBE_LINE_COLOR;
-
-                    for (let cube of cubes) {
-                        cube.rotX += cube.rotSpeedX;
-                        cube.rotY += cube.rotSpeedY;
-                        cube.rotZ += cube.rotSpeedZ;
-
-                        cube.cx += cube.vx;
-                        cube.cy += cube.vy;
-
-                        if (cube.cx > maxWorldX) cube.cx = -maxWorldX;
-                        if (cube.cx < -maxWorldX) cube.cx = maxWorldX;
-                        if (cube.cy > maxWorldY) cube.cy = -maxWorldY;
-                        if (cube.cy < -maxWorldY) cube.cy = maxWorldY;
-
-                        const transformed = cubeVertices.map(v => {
-                            const rotated = rotatePoint(v[0], v[1], v[2], cube.rotX, cube.rotY, cube.rotZ);
-                            const wx = rotated.x + cube.cx;
-                            const wy = rotated.y + cube.cy;
-                            const wz = rotated.z + cube.cz;
-                            return project(wx, wy, wz);
-                        });
-
-                        ctx.beginPath();
-                        for (let edge of cubeEdges) {
-                            const p1 = transformed[edge[0]];
-                            const p2 = transformed[edge[1]];
-                            if (p1 && p2) { 
-                                ctx.moveTo(p1.sx, p1.sy);
-                                ctx.lineTo(p2.sx, p2.sy);
-                            }
-                        }
-                        ctx.stroke();
-                    }
-
-                    requestAnimationFrame(animate);
-                }
-
-                resize();
-                requestAnimationFrame(animate);
+            if (cubes.length === 0) {
+                initCubes();
             }
-        })();
-        // --- GITHUB TERMINAL LOGIC ---
-               const termBody = document.getElementById('term-body');
+        }
+
+        function initCubes() {
+            cubes = [];
+            const scale = FOCAL_LENGTH / (FOCAL_LENGTH + CUBE_DISTANCE);
+            for (let i = 0; i < CUBE_COUNT; i++) {
+                const maxWorldX = (width / 2 + CUBE_SIZE) / scale;
+                const maxWorldY = (height / 2 + CUBE_SIZE) / scale;
+                const cx = (Math.random() * 2 - 1) * maxWorldX * 0.8;
+                const cy = (Math.random() * 2 - 1) * maxWorldY * 0.8;
+                cubes.push({
+                    cx, cy,
+                    cz: CUBE_DISTANCE,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    rotX: Math.random() * Math.PI * 2,
+                    rotY: Math.random() * Math.PI * 2,
+                    rotZ: Math.random() * Math.PI * 2,
+                    rotSpeedX: (Math.random() - 0.5) * 0.006,
+                    rotSpeedY: (Math.random() - 0.5) * 0.006,
+                    rotSpeedZ: (Math.random() - 0.5) * 0.003
+                });
+            }
+        }
+
+        window.addEventListener('resize', resize);
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        }, { passive: true });
+
+        window.addEventListener('scroll', () => {
+            scrollY = window.scrollY;
+        }, { passive: true });
+
+        function rotatePoint(x, y, z, rotX, rotY, rotZ) {
+            let cos = Math.cos(rotX), sin = Math.sin(rotX);
+            let y1 = y * cos - z * sin;
+            let z1 = y * sin + z * cos;
+
+            cos = Math.cos(rotY); sin = Math.sin(rotY);
+            let x2 = x * cos + z1 * sin;
+            let z2 = -x * sin + z1 * cos;
+
+            cos = Math.cos(rotZ); sin = Math.sin(rotZ);
+            let x3 = x2 * cos - y1 * sin;
+            let y3 = x2 * sin + y1 * cos;
+
+            return { x: x3, y: y3, z: z2 };
+        }
+
+        function project(x, y, z) {
+            const scale = FOCAL_LENGTH / (FOCAL_LENGTH + z);
+            return {
+                sx: width / 2 + x * scale,
+                sy: height / 2 + y * scale
+            };
+        }
+
+        function animate() {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, width, height);
+
+            const scrollOffset = scrollY;
+            for (let dot of dots) {
+                const dx = dot.baseX - mouseX;
+                const dy = dot.baseY - mouseY;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                let targetOffX = 0, targetOffY = 0;
+                let mouseAlphaBoost = 0;
+                if (dist < MOUSE_RADIUS && dist > 0) {
+                    const factor = 1 - dist / MOUSE_RADIUS;
+                    const angle = Math.atan2(dy, dx);
+                    targetOffX = Math.cos(angle) * factor * MAX_OFFSET;
+                    targetOffY = Math.sin(angle) * factor * MAX_OFFSET;
+                    mouseAlphaBoost = factor * 0.25;
+                }
+
+                dot.offsetX += (targetOffX - dot.offsetX) * 0.12;
+                dot.offsetY += (targetOffY - dot.offsetY) * 0.12;
+
+                const waveX = Math.sin(dot.baseY * GRID_WAVE_FREQ + scrollOffset * SCROLL_FREQ) * SCROLL_WAVE_AMP;
+                const waveY = Math.cos(dot.baseX * GRID_WAVE_FREQ + scrollOffset * SCROLL_FREQ) * SCROLL_WAVE_AMP;
+
+                dot._finalX = dot.baseX + dot.offsetX + waveX;
+                dot._finalY = dot.baseY + dot.offsetY + waveY;
+
+                let alpha = BASE_ALPHA + mouseAlphaBoost;
+                if (alpha > 0.4) alpha = 0.4;
+                ctx.beginPath();
+                ctx.arc(dot._finalX, dot._finalY, DOT_RADIUS, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${WHITISH_COLOR}, ${alpha})`;
+                ctx.fill();
+            }
+
+            ctx.lineWidth = WEB_LINE_WIDTH;
+            ctx.strokeStyle = WEB_LINE_COLOR;
+            ctx.beginPath();
+            
+            const maxDistSq = 115 * 115; 
+            
+            for (let i = 0; i < dots.length; i++) {
+                const dotA = dots[i];
+                for (let j = i + 1; j < dots.length; j++) {
+                    const dotB = dots[j];
+                    const dx = dotB._finalX - dotA._finalX;
+                    const dy = dotB._finalY - dotA._finalY;
+                    const distSq = dx * dx + dy * dy;
+                    
+                    if (distSq < maxDistSq) {
+                        ctx.moveTo(dotA._finalX, dotA._finalY);
+                        ctx.lineTo(dotB._finalX, dotB._finalY);
+                    }
+                }
+            }
+            ctx.stroke();
+
+            const scaleFactor = FOCAL_LENGTH / (FOCAL_LENGTH + CUBE_DISTANCE);
+            const worldMargin = CUBE_SIZE * 1.5; 
+            const maxWorldX = (width / 2 + worldMargin) / scaleFactor;
+            const maxWorldY = (height / 2 + worldMargin) / scaleFactor;
+
+            ctx.lineWidth = CUBE_LINE_WIDTH;
+            ctx.strokeStyle = CUBE_LINE_COLOR;
+
+            for (let cube of cubes) {
+                cube.rotX += cube.rotSpeedX;
+                cube.rotY += cube.rotSpeedY;
+                cube.rotZ += cube.rotSpeedZ;
+
+                cube.cx += cube.vx;
+                cube.cy += cube.vy;
+
+                if (cube.cx > maxWorldX) cube.cx = -maxWorldX;
+                if (cube.cx < -maxWorldX) cube.cx = maxWorldX;
+                if (cube.cy > maxWorldY) cube.cy = -maxWorldY;
+                if (cube.cy < -maxWorldY) cube.cy = maxWorldY;
+
+                const transformed = cubeVertices.map(v => {
+                    const rotated = rotatePoint(v[0], v[1], v[2], cube.rotX, cube.rotY, cube.rotZ);
+                    const wx = rotated.x + cube.cx;
+                    const wy = rotated.y + cube.cy;
+                    const wz = rotated.z + cube.cz;
+                    return project(wx, wy, wz);
+                });
+
+                ctx.beginPath();
+                for (let edge of cubeEdges) {
+                    const p1 = transformed[edge[0]];
+                    const p2 = transformed[edge[1]];
+                    if (p1 && p2) { 
+                        ctx.moveTo(p1.sx, p1.sy);
+                        ctx.lineTo(p2.sx, p2.sy);
+                    }
+                }
+                ctx.stroke();
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        resize();
+        requestAnimationFrame(animate);
+    }
+})();
+
+const termBody = document.getElementById('term-body');
 let cachedRepos = null;
 
 async function fetchGitHubData() {
@@ -1454,13 +1571,13 @@ async function fetchGitHubData() {
         }));
     } catch (err) {
         cachedRepos = [
-			{ name: 'AUR-scanner', lang: 'Python'},
-		    { name: 'KASCVE-PROJECT', lang: 'Python,C++, GO - (private)' },
-    		{ name: 'The-Donut', lang: 'C++' },
-    		{ name: 'HTB-Labs', lang: 'Markdown' },
-    		{ name: 'telegram-rlottie-vulnerability', lang: 'CMake, C++' },
-			{ name: 'KiOS', lang: 'Shell, C++, C, Assembly, ...'}
-		];
+            { name: 'AUR-scanner', lang: 'Python'},
+            { name: 'KASCVE-PROJECT', lang: 'Python,C++, GO - (private)' },
+            { name: 'The-Donut', lang: 'C++' },
+            { name: 'HTB-Labs', lang: 'Markdown' },
+            { name: 'telegram-rlottie-vulnerability', lang: 'CMake, C++' },
+            { name: 'KiOS', lang: 'Shell, C++, C, Assembly, ...'}
+        ];
     }
 }
 
