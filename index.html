@@ -1558,7 +1558,34 @@
 
 const termBody = document.getElementById('term-body');
 let cachedRepos = null;
+async function loadBlogManifest() {
+    const statusEl = document.getElementById('blog-telemetry-status');
+    const payloadEl = document.getElementById('blog-telemetry-payload');
 
+    try {
+        const response = await fetch('YOUR_BLOG_MANIFEST_URL_HERE');
+        
+        if (!response.ok) throw new Error('Manifest fetch failed');
+        
+        const data = await response.json();
+
+        document.getElementById('blog-node-tag').innerText = `[${data.category || 'LOG'}]`;
+        document.getElementById('blog-node-meta-details').innerText = ` | ${data.date || 'LATEST'}`;
+        document.getElementById('blog-node-title').innerText = data.title;
+        document.getElementById('blog-node-excerpt').innerText = data.excerpt;
+        document.getElementById('blog-node-link').href = data.url;
+
+        statusEl.style.display = 'none';
+        payloadEl.style.display = 'block';
+
+    } catch (err) {
+        console.error("Telemetry failure:", err);
+        statusEl.innerText = "[ ERROR: TELEMETRY LINK LOST ]";
+    }
+}
+
+loadBlogManifest();
+		
 async function fetchGitHubData() {
     try {
         const res = await fetch('https://pinned.berrysauce.dev/get/PicasoTheDeal');
