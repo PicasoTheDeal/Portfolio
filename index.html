@@ -1566,26 +1566,29 @@ async function loadBlogManifest() {
     try {
         const response = await fetch('https://engineering-logs.pages.dev/posts.json');
         
-        if (!response.ok) throw new Error('Manifest fetch failed');
+        if (!response.ok) throw new Error('Manifest unavailable');
         
         const data = await response.json();
+        
+        const latestPost = data[0]; 
 
-        document.getElementById('blog-node-tag').innerText = `[${data.category || 'LOG'}]`;
-        document.getElementById('blog-node-meta-details').innerText = ` | ${data.date || 'LATEST'}`;
-        document.getElementById('blog-node-title').innerText = data.title;
-        document.getElementById('blog-node-excerpt').innerText = data.excerpt;
-        document.getElementById('blog-node-link').href = data.url;
+        document.getElementById('blog-node-tag').innerText = `[${latestPost.category}]`;
+        document.getElementById('blog-node-meta-details').innerText = ` ${latestPost.date}`;
+        document.getElementById('blog-node-title').innerText = latestPost.title;
+        document.getElementById('blog-node-excerpt').innerText = latestPost.excerpt;
+        
+        document.getElementById('blog-node-link').href = `https://engineering-logs.pages.dev/post?id=${latestPost.id}`;
 
         statusEl.style.display = 'none';
         payloadEl.style.display = 'block';
 
     } catch (err) {
-        console.error("Telemetry failure:", err);
+        console.error("Telemetry Error:", err);
         statusEl.innerText = "[ ERROR: TELEMETRY LINK LOST ]";
     }
 }
 
-loadBlogManifest();
+document.addEventListener('DOMContentLoaded', loadBlogManifest);
 		
 async function fetchGitHubData() {
     try {
