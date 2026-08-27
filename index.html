@@ -557,6 +557,11 @@
             transition: opacity 0.3s ease;
         }
 
+		.poster-card.crop img {
+    		height: 100%;
+    		object-fit: cover;
+		}
+		
         .poster-card img::before {
             content: '';
             position: absolute;
@@ -1158,7 +1163,7 @@
                         <div class="poster-card">
                             <img src="assets/image-05.jpg" alt="Poster Design 05" loading="lazy">
                         </div>
-                        <div class="poster-card">
+                        <div class="poster-card crop">
                             <img src="assets/image-06.jpg" alt="Poster Design 06" loading="lazy">
                         </div>
                         <div class="poster-card">
