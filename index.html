@@ -53,8 +53,8 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             z-index: -1;
             pointer-events: none;
         }
@@ -161,7 +161,7 @@
         .glass-terminal {
             margin-top: 32px;
             width: 100%;
-            max-width: 900px;
+            max-width: 100%;
             height: 460px;
             background-color: rgba(3, 5, 8, 0.92);
             border: 1px solid rgba(91, 122, 158, 0.35);
@@ -396,7 +396,7 @@
         .telemetry-payload-hidden { display: none; }
 
         .main-grid { display: grid; grid-template-columns: 1fr var(--track-width); gap: 0; position: relative; }
-        .left-column { padding: 48px 0 80px; padding-right: 56px; max-width: var(--left-col-max); }
+        .left-column { padding: 48px 0 80px; padding-right: 56px;}
 
         .right-column {
             position: sticky;
@@ -908,7 +908,7 @@
         </div>
 
         <footer class="page-footer">
-            <span>PicasoTheDeal</span> &copy; 2026 &mdash; Addis Ababa, Ethiopia &mdash; Rendering the void with raw WebGL geometry.
+            <span>PicasoTheDeal</span> &copy; 2026 &mdash; No framework no bloat(Maybe a little).
         </footer>
     </div>
 
