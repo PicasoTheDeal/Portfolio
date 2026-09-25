@@ -860,38 +860,94 @@ html.is-phone .track-item:hover i { transform: none; }
 html.is-phone .track-item span { font-size: .68rem; }
 html.is-phone .track-item:hover span { color: var(--fg-dim); }
 
-html.is-phone .record-grid { grid-template-columns: 1fr; gap: 16px; }
-html.is-phone .exp-stack { gap: 12px; }
-html.is-phone .exp-block { padding: 22px 18px; }
-html.is-phone .exp-block:hover { transform: none; border-color: var(--line); }
-html.is-phone .exp-company { font-size: .56rem; letter-spacing: .18em; margin-bottom: 6px; }
-html.is-phone .exp-role { font-size: 1.3rem; line-height: 1.15; margin-bottom: 6px; }
-html.is-phone .exp-dates {
-  font-size: .58rem;
-  letter-spacing: .12em;
-  margin-bottom: 16px;
-  padding-bottom: 14px;
+html.is-phone .record-grid {
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  gap: 18px;
+  flex: initial;
+  min-height: 0;
+  align-content: stretch;
 }
-html.is-phone .exp-desc { font-size: .72rem; line-height: 1.85; }
 
-html.is-phone .cta-block { padding: 24px 20px; gap: 18px; }
-html.is-phone .cta-title { font-size: 1.35rem; max-width: 100%; line-height: 1.15; }
-html.is-phone .cta-text { font-size: .7rem; line-height: 1.75; }
+html.is-phone .exp-stack {
+  gap: 14px;
+}
+
+html.is-phone .exp-block {
+  padding: 22px 18px;
+  border-left: 2px solid var(--chartreuse);
+  border-top: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+html.is-phone .exp-block::before { display: none; }
+html.is-phone .exp-block:hover {
+  transform: none;
+  border-color: var(--line);
+  border-left-color: var(--chartreuse);
+}
+
+html.is-phone .exp-company {
+  font-size: .56rem;
+  letter-spacing: .18em;
+  margin-bottom: 8px;
+}
+html.is-phone .exp-role {
+  font-size: 1.25rem;
+  line-height: 1.2;
+  letter-spacing: -.015em;
+  margin-bottom: 8px;
+}
+html.is-phone .exp-dates {
+  font-size: .56rem;
+  letter-spacing: .1em;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+}
+html.is-phone .exp-desc {
+  font-size: .74rem;
+  line-height: 1.8;
+  text-align: left;
+  letter-spacing: .002em;
+}
+
+html.is-phone .cta-block {
+  padding: 24px 20px;
+  gap: 16px;
+  border-color: var(--line);
+}
+html.is-phone .cta-title {
+  font-size: 1.25rem;
+  line-height: 1.2;
+  max-width: 100%;
+  letter-spacing: -.015em;
+}
+html.is-phone .cta-text {
+  font-size: .7rem;
+  line-height: 1.75;
+}
 html.is-phone .cta-btn {
+  align-self: stretch;
   width: 100%;
   justify-content: center;
-  padding: 13px 20px;
+  padding: 14px 20px;
   font-size: .62rem;
   letter-spacing: .16em;
+  gap: 10px;
 }
+html.is-phone .cta-btn:hover i { transform: none; }
 
 html.is-phone .page-footer {
   flex-direction: column;
-  gap: 6px;
-  font-size: .54rem;
-  letter-spacing: .12em;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 22px;
   padding-top: 20px;
+  font-size: .52rem;
+  letter-spacing: .12em;
+  line-height: 1.6;
 }
+html.is-phone .page-footer .brand-mark { color: var(--lime-cream); }
 
 html.is-phone .poster-lightbox { padding: 60px 16px 70px; }
 html.is-phone .pl-close { top: 12px; right: 12px; width: 36px; height: 36px; font-size: 1rem; }
@@ -900,6 +956,67 @@ html.is-phone .pl-caption { bottom: 18px; font-size: .55rem; letter-spacing: .14
 html.is-phone .char { animation-duration: .4s; animation-delay: calc(var(--ci) * 12ms + 80ms); }
 html.is-phone .js .rv { transition-duration: .55s; }
 html.is-phone .js .mask > span { transition-duration: .7s; }
+html.a11y-large-text .hero-overline,
+html.a11y-large-text .narrative-label,
+html.a11y-large-text .chapter-name,
+html.a11y-large-text .chapter-num,
+html.a11y-large-text .top-meta,
+html.a11y-large-text .nav-side,
+html.a11y-large-text .dot-btn,
+html.a11y-large-text .project-subtitle,
+html.a11y-large-text .project-readme-label,
+html.a11y-large-text .project-meta,
+html.a11y-large-text .repo-footer,
+html.a11y-large-text .donut-title,
+html.a11y-large-text .donut-badge,
+html.a11y-large-text .donut-meta,
+html.a11y-large-text .signal-label,
+html.a11y-large-text .signal-badge,
+html.a11y-large-text .signal-meta,
+html.a11y-large-text .log-entry-meta,
+html.a11y-large-text .stat-label,
+html.a11y-large-text .track-category,
+html.a11y-large-text .exp-company,
+html.a11y-large-text .exp-dates,
+html.a11y-large-text .page-footer,
+html.a11y-large-text .term-title,
+html.a11y-large-text .term-status,
+html.a11y-large-text .term-copy,
+html.a11y-large-text .focus-indicator,
+html.a11y-large-text .cmdk-esc,
+html.a11y-large-text .cmdk-foot,
+html.a11y-large-text .flag-cmd{
+  font-size:1.15rem !important;
+  letter-spacing:.04em !important;
+}
+
+html.a11y-large-text .hero-roles,
+html.a11y-large-text .hero-location,
+html.a11y-large-text .contact-link,
+html.a11y-large-text .narrative-text,
+html.a11y-large-text .work-blurb,
+html.a11y-large-text .project-readme,
+html.a11y-large-text .craft-note,
+html.a11y-large-text .log-entry-excerpt,
+html.a11y-large-text .track-item span,
+html.a11y-large-text .exp-desc,
+html.a11y-large-text .cta-text,
+html.a11y-large-text .cta-btn,
+html.a11y-large-text .cmdk-item,
+html.a11y-large-text .node-excerpt,
+html.a11y-large-text .flag-content,
+html.a11y-large-text .scanning-status,
+html.a11y-large-text .log-entry-title{
+  font-size:1.4rem !important;
+  line-height:1.55 !important;
+}
+
+html.a11y-large-text .project-card{padding:24px 22px;}
+html.a11y-large-text .exp-block{padding:30px 26px;}
+html.a11y-large-text .log-entry{padding:20px 22px;}
+html.a11y-large-text .track-item{padding:12px 22px;}
+html.a11y-large-text .page-footer{padding-top:24px;}
+html.a11y-large-text .flag-content{padding:28px; line-height:1.85 !important;}
 
 @media (max-width:1180px){
   .project-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
@@ -937,6 +1054,58 @@ html.is-phone .js .mask > span { transition-duration: .7s; }
   .poster-lightbox{padding:20px;}
   .pl-close{top:14px; right:14px; width:36px; height:36px;}
   .pl-caption{bottom:14px; font-size:.56rem;}
+}
+
+.a11y-toggle{
+  position:fixed;
+  left:clamp(18px,2.2vw,30px);
+  bottom:72px;
+  z-index:64;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:8px 14px;
+  background:var(--lime-cream);
+  border:1px solid var(--line);
+  color:var(--black);
+  font-family:var(--font-mono);
+  font-size:.58rem;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  cursor:pointer;
+  user-select:none;
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  transition:color .3s var(--ease), border-color .3s var(--ease), background .3s var(--ease);
+}
+.a11y-toggle:hover{
+  color:var(--chartreuse);
+  border-color:var(--chartreuse);
+  background:rgba(0,0,0,.9);
+}
+.a11y-toggle i{font-size:.95rem; line-height:1; color:inherit;}
+.a11y-toggle.active{
+  background:var(--chartreuse);
+  border-color:var(--chartreuse);
+  color:var(--black);
+}
+.a11y-toggle.active:hover{
+  background:var(--lime-cream);
+  border-color:var(--lime-cream);
+  color:var(--black);
+}
+
+@media (max-width:680px){
+  .a11y-toggle{
+    left:12px;
+    bottom:64px;
+    padding:8px 11px;
+    font-size:.54rem;
+    letter-spacing:.1em;
+    gap:7px;
+  }
+  .a11y-toggle i{font-size:.88rem;}
 }
 </style>
 </head>
@@ -1300,6 +1469,14 @@ html.is-phone .js .mask > span { transition-duration: .7s; }
 
 <button class="cmdk-hint" id="cmdk-hint" type="button" aria-label="Open command palette">
   <kbd id="cmdk-key">⌘K</kbd><span>commands</span>
+</button>
+
+<button class="a11y-toggle" id="a11y-toggle" type="button"
+        aria-pressed="false"
+        aria-label="Toggle larger text size for readability"
+        title="Toggle larger text size (for low-vision readers)">
+  <i class="bi bi-eye-slash" aria-hidden="true"></i>
+  <span>Larger text</span>
 </button>
 
 <div class="cmdk-overlay" id="cmdk" hidden>
@@ -2618,6 +2795,35 @@ document.addEventListener('DOMContentLoaded', () => {
       f.src = f.dataset.src;
     });
   }
+
+  (function initA11yToggle(){
+    const btn = document.getElementById('a11y-toggle');
+    if (!btn) return;
+
+    const KEY = 'tetstack-a11y-large-text';
+    const iconEl = btn.querySelector('i');
+    const labelEl = btn.querySelector('span');
+
+    let active = false;
+    try { active = localStorage.getItem(KEY) === '1'; } catch (_) {}
+
+    function apply(state){
+      active = !!state;
+      document.documentElement.classList.toggle('a11y-large-text', active);
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+      if (iconEl)  iconEl.className = active ? 'bi bi-eye-fill' : 'bi bi-eye-slash';
+      if (labelEl) labelEl.textContent = active ? 'Normal text' : 'Larger text';
+      try { localStorage.setItem(KEY, active ? '1' : '0'); } catch (_) {}
+    }
+
+    apply(active);
+
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      apply(!active);
+    });
+  })();
 
   loadBlogManifest();
   fetchChaosStatus();
