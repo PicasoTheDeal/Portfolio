@@ -342,8 +342,146 @@ body.has-clue .terminal-foot.pulse{animation:footPulse 1.4s var(--ease) 2;}
 .repo-footer a:hover{border-bottom-color:var(--chartreuse);}
 
 .craft-grid{flex:1; min-height:0; display:grid; grid-template-columns:1.4fr 1fr; gap:clamp(20px,2.6vw,40px);}
-.poster-grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:repeat(2,minmax(0,1fr)); gap:14px; min-height:0;}
-.poster-card{position:relative; overflow:hidden; background:var(--black); border:1px solid var(--line); min-height:0; cursor:zoom-in; transition:border-color .4s var(--ease), transform .5s var(--ease);}
+.donut-frame:hover{border-color:var(--line-hi);}
+.donut-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:16px 22px;
+  border-bottom:1px solid var(--line);
+}
+.donut-frame{
+  flex-shrink:0;
+  border:1px solid var(--line);
+  background:var(--black);
+  display:flex;
+  height: fit-content;
+  flex-direction:column;
+  transition:border-color .4s var(--ease);
+  overflow:hidden;
+}
+.donut-frame:hover{border-color:var(--line-hi);}
+.donut-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:16px 22px;
+  border-bottom:1px solid var(--line);
+}
+.donut-title{
+  font-family:var(--font-mono);
+  font-size:.68rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--fg-dim);
+}
+.donut-title i{color:var(--chartreuse); margin-right:10px;}
+.donut-badge{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-family:var(--font-mono);
+  font-size:.6rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--lime-cream);
+  border:1px solid rgba(231,255,141,.28);
+  padding:4px 12px;
+}
+.donut-badge .pulse{
+  width:6px;
+  height:6px;
+  background:var(--chartreuse);
+  animation:tick 1.8s steps(2,start) infinite;
+}
+.donut-body{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:clamp(32px,4.5vh,64px) clamp(16px,2.4vw,40px);
+  background:#000;
+  overflow:hidden;
+  min-height:clamp(360px,46vh,500px);
+}
+#donut-pre{
+  font-family:var(--font-mono);
+  font-size:clamp(6px,.95vw,11px);
+  line-height:1.02;
+  letter-spacing:0;
+  color:var(--chartreuse);
+  white-space:pre;
+  margin:0;
+  text-align:left;
+  text-shadow:0 0 6px rgba(206,255,26,.35);
+  user-select:none;
+  pointer-events:none;
+}
+.donut-foot{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px 28px;
+  padding:16px 22px;
+  border-top:1px solid var(--line);
+}
+.donut-meta{
+  font-family:var(--font-mono);
+  font-size:.64rem;
+  letter-spacing:.06em;
+  color:var(--fg-faint);
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+}
+.donut-meta i{color:var(--forest-moss); font-size:.85rem;}
+.donut-meta a{
+  color:var(--lime-cream);
+  text-decoration:none;
+  border-bottom:1px solid transparent;
+  transition:border-color .3s var(--ease);
+}
+.donut-meta a:hover{border-bottom-color:var(--chartreuse);}
+
+@media (max-width:1180px){
+  .donut-body{min-height:clamp(340px,44vh,460px);}
+}
+
+@media (max-width:768px){
+  .donut-body{
+    min-height:320px;
+    padding:24px 14px;
+  }
+  #donut-pre{font-size:8px;}
+}
+
+html.is-phone .donut-body{
+  min-height:260px;
+  padding:20px 10px;
+}
+html.is-phone #donut-pre{font-size:5.8px;}
+
+@media (max-height:520px){
+  .donut-body{min-height:220px; padding:16px 12px;}
+  #donut-pre{font-size:5.5px;}
+}
+
+
+.poster-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(160px, 1fr));
+  gap:14px;
+  align-content:start;
+}
+
+.poster-card{
+  position:relative;
+  overflow:hidden;
+  background:var(--black);
+  border:1px solid var(--line);
+  aspect-ratio:4 / 3;
+  cursor:zoom-in;
+  transition:border-color .4s var(--ease), transform .5s var(--ease);
+}
 .poster-card:hover{border-color:var(--line-hi); transform:translateY(-4px);}
 .poster-card::after{content:''; position:absolute; inset:0; background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.55)); pointer-events:none; opacity:.9; transition:opacity .5s var(--ease);}
 .poster-card::before{content:'⤢'; position:absolute; top:12px; right:12px; color:var(--chartreuse); font-family:var(--font-mono); font-size:1.05rem; line-height:1; z-index:2; opacity:0; transform:scale(.7) rotate(-8deg); transition:opacity .35s var(--ease), transform .35s var(--ease); pointer-events:none; text-shadow:0 0 12px rgba(206,255,26,.7);}
@@ -558,11 +696,13 @@ html.is-phone .project-meta { font-size: .55rem; gap: 6px 12px; }
 html.is-phone .repo-footer { font-size: .55rem; letter-spacing: .1em; margin-top: 18px; flex-direction: column; align-items: flex-start; gap: 8px; }
 
 html.is-phone .craft-grid,
+html.is-phone .donut-body{min-height:260px; padding:20px 12px;}
+html.is-phone #donut-pre{font-size:5.5px;}
 html.is-phone .live-grid,
 html.is-phone .record-grid,
 html.is-phone .arsenal-grid { grid-template-columns: 1fr; gap: 16px; }
 
-html.is-phone .poster-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(140px, 1fr)); gap: 10px; }
+html.is-phone .poster-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
 html.is-phone .calendar-frame { padding: 14px; min-height: 180px; }
 html.is-phone .craft-note { font-size: .68rem; padding-left: 16px; }
 
@@ -756,10 +896,27 @@ html.is-phone .js .mask > span { transition-duration: .7s; }
 
     <div class="craft-grid">
       <div class="poster-grid">
+        <div class="poster-card rv" style="--d:0"><img src="assets/image-01.jpg" alt="Poster Design 02" loading="lazy"></div>
         <div class="poster-card rv" style="--d:0"><img src="assets/image-02.jpg" alt="Poster Design 02" loading="lazy"></div>
         <div class="poster-card rv" style="--d:1"><img src="assets/image-03.jpg" alt="Poster Design 03" loading="lazy"></div>
         <div class="poster-card rv" style="--d:2"><img src="assets/image-04.jpg" alt="Poster Design 04" loading="lazy"></div>
         <div class="poster-card rv" style="--d:3"><img src="assets/image-07.jpg" alt="Poster Design 07" loading="lazy"></div>
+      </div>
+
+      <div class="donut-frame rv" style="--d:4">
+        <div class="donut-head">
+          <span class="donut-title"><i class="bi bi-asterisk"></i>Live Render — The-Donut</span>
+          <span class="donut-badge"><span class="pulse"></span>Spinning</span>
+        </div>
+        <div class="donut-body">
+          <pre id="donut-pre" aria-hidden="true"></pre>
+        </div>
+        <div class="donut-foot">
+          <span class="donut-meta"><i class="bi bi-cpu"></i>C++ · ASCII · 1.7 KB</span>
+          <span class="donut-meta"><i class="bi bi-bounding-box"></i>80 × 22 chars</span>
+          <span class="donut-meta"><i class="bi bi-bullseye"></i>Z-buffered torus</span>
+          <span class="donut-meta"><i class="bi bi-github"></i><a href="https://github.com/PicasoTheDeal/The-Donut" target="_blank" rel="noopener noreferrer">View Source</a></span>
+        </div>
       </div>
 
       <div class="craft-side">
@@ -2305,6 +2462,91 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 300);
   });
 });
+
+(function initDonut(){
+  const pre = document.getElementById('donut-pre');
+  if (!pre || window.__IS_PHONE) return;
+
+  const W = 80, H = 22;
+  const K1_X = 30, K1_Y = 15;
+  const K2 = 5;
+  const R1 = 1, R2 = 2;
+  const THETA_STEP = 0.07;
+  const PHI_STEP = 0.02;
+  const SHADES = '.,-~:;=!*#$@';
+  const SHADES_LAST = SHADES.length - 1;
+  const TWO_PI = 6.28;
+
+  const buffer = new Array(W * H);
+  const zbuf = new Float32Array(W * H);
+  const rowParts = new Array(H);
+
+  let A = 0, B = 0;
+  let rafId = null;
+
+  function frame(){
+    const cosA = Math.cos(A), sinA = Math.sin(A);
+    const cosB = Math.cos(B), sinB = Math.sin(B);
+
+    for (let i = 0; i < W * H; i++){ buffer[i] = ' '; zbuf[i] = 0; }
+
+    for (let theta = 0; theta < TWO_PI; theta += THETA_STEP){
+      const ct = Math.cos(theta), st = Math.sin(theta);
+      for (let phi = 0; phi < TWO_PI; phi += PHI_STEP){
+        const cp = Math.cos(phi), sp = Math.sin(phi);
+        const cx = R2 + R1 * ct;
+        const cy = R1 * st;
+
+        const x = cx * (cosB * cp + sinA * sinB * sp) - cy * cosA * sinB;
+        const y = cx * (sinB * cp - sinA * cosB * sp) + cy * cosA * cosB;
+        const z = K2 + cosA * cx * sp + cy * sinA;
+        const ooz = 1 / z;
+
+        const xp = (W / 2 + K1_X * ooz * x) | 0;
+        const yp = (H / 2 - K1_Y * ooz * y) | 0;
+
+        const L = cp * ct * sinB - cosA * ct * sp - sinA * st +
+                  cosB * (cosA * st - ct * sinA * sp);
+
+        if (L > 0 && xp >= 0 && xp < W && yp >= 0 && yp < H){
+          const idx = xp + W * yp;
+          if (ooz > zbuf[idx]){
+            zbuf[idx] = ooz;
+            const li = (L * 8) | 0;
+            buffer[idx] = SHADES[li < 0 ? 0 : li > SHADES_LAST ? SHADES_LAST : li];
+          }
+        }
+      }
+    }
+
+    for (let j = 0; j < H; j++){
+      rowParts[j] = buffer.slice(j * W, (j + 1) * W).join('');
+    }
+    pre.textContent = rowParts.join('\n');
+
+    A += 0.04;
+    B += 0.02;
+    rafId = requestAnimationFrame(frame);
+  }
+
+  function start(){
+    if (rafId === null) rafId = requestAnimationFrame(frame);
+  }
+  function stop(){
+    if (rafId !== null){ cancelAnimationFrame(rafId); rafId = null; }
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    for (const entry of entries){
+      if (entry.isIntersecting) start(); else stop();
+    }
+  }, { threshold: 0.01 });
+  io.observe(pre);
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stop();
+  });
+})();
 </script>
 </body>
 </html>
