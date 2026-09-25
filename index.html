@@ -644,92 +644,192 @@ html.is-phone .flag-modal,
 html.is-phone .cmdk-hint,
 html.is-phone .cmdk-overlay,
 html.is-phone .cursor-dot,
-html.is-phone .term-ctx-menu { display: none !important; }
+html.is-phone .term-ctx-menu,
+html.is-phone .donut-frame,
+html.is-phone .chaos-box { display: none !important; }
 
-html.is-phone .prologue-grid { grid-template-columns: 1fr; gap: 0; }
-html.is-phone .prologue-left { justify-content: flex-start; padding-bottom: 20px; }
-
-html.is-phone .topbar { padding: 16px 18px; padding-top: calc(16px + env(safe-area-inset-top, 0)); }
+html.is-phone .topbar {
+  padding: 16px 18px;
+  padding-top: calc(16px + env(safe-area-inset-top, 0));
+}
 html.is-phone .wordmark { font-size: .62rem; }
 html.is-phone .top-meta { display: none; }
 
-html.is-phone .chapter-nav { height: 52px; padding: 0 10px; padding-bottom: env(safe-area-inset-bottom, 0); }
-html.is-phone .nav-side { font-size: .55rem; letter-spacing: .08em; padding: 0 4px; max-width: 26vw; gap: 6px; }
+html.is-phone .chapter-nav {
+  height: 54px;
+  padding: 0 12px;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+html.is-phone .nav-side {
+  font-size: .55rem;
+  letter-spacing: .08em;
+  padding: 0 4px;
+  max-width: 30vw;
+  gap: 6px;
+}
 html.is-phone .nav-side .nav-arrow { font-size: .8rem; }
 html.is-phone .nav-dots { gap: 5px; }
-html.is-phone .dot-btn { width: 24px; height: 24px; font-size: .54rem; }
+html.is-phone .dot-btn { width: 26px; height: 26px; font-size: .54rem; }
 
-html.is-phone .panel { padding: 66px 18px 78px; }
+html.is-phone .panel { padding: 66px 18px 84px; }
 html.is-phone .panel::before { display: none; }
 
-html.is-phone .chapter-head { margin-bottom: 18px; gap: 12px; }
-html.is-phone .chapter-num { font-size: .58rem; padding: 3px 8px; }
+html.is-phone .chapter-head { margin-bottom: 20px; gap: 10px; }
+html.is-phone .chapter-num { font-size: .58rem; padding: 3px 8px; letter-spacing: .16em; }
 html.is-phone .chapter-name { display: none; }
 
-html.is-phone .hero-overline { font-size: .58rem; letter-spacing: .2em; margin-bottom: 16px; }
-html.is-phone .hero-name { font-size: clamp(2.4rem, 14vw, 4.4rem); margin-bottom: 18px; }
-html.is-phone .hero-roles { font-size: .7rem; line-height: 1.75; margin-bottom: 14px; }
-html.is-phone .hero-roles .role-sep { margin: 0 5px; }
-html.is-phone .hero-location { font-size: .64rem; margin-bottom: 20px; }
+html.is-phone .statement {
+  font-size: clamp(1.35rem, 7vw, 2rem);
+  max-width: 100%;
+  margin-bottom: 18px;
+  line-height: 1.1;
+}
 
-html.is-phone .contact-row { gap: 6px 16px; margin-bottom: 22px; }
-html.is-phone .contact-link { font-size: .66rem; gap: 6px; }
-html.is-phone .contact-link i { font-size: .78rem; }
+html.is-phone .prologue-grid { grid-template-columns: 1fr; gap: 0; }
+html.is-phone .prologue-left { justify-content: flex-start; padding-bottom: 16px; }
+
+html.is-phone .hero-overline { font-size: .58rem; letter-spacing: .2em; margin-bottom: 14px; }
+html.is-phone .hero-name { font-size: clamp(2.4rem, 14vw, 4.4rem); margin-bottom: 16px; line-height: .94; }
+html.is-phone .hero-roles { font-size: .68rem; line-height: 1.75; margin-bottom: 12px; max-width: 100%; }
+html.is-phone .hero-roles .role-sep { margin: 0 5px; }
+html.is-phone .hero-location { font-size: .62rem; margin-bottom: 18px; }
+
+html.is-phone .contact-row { gap: 6px 16px; margin-bottom: 20px; }
+html.is-phone .contact-link { font-size: .64rem; gap: 6px; }
+html.is-phone .contact-link i { font-size: .76rem; }
 
 html.is-phone .narrative { padding-left: 16px; max-width: 100%; }
-html.is-phone .narrative-text { font-size: .76rem; line-height: 1.8; }
-html.is-phone .narrative-author { font-size: .98rem; }
+html.is-phone .narrative-label { font-size: .56rem; letter-spacing: .18em; margin-bottom: 8px; }
+html.is-phone .narrative-text { font-size: .74rem; line-height: 1.8; }
+html.is-phone .narrative-author { font-size: .96rem; margin-bottom: 6px; }
 
-html.is-phone .statement { font-size: clamp(1.4rem, 7.5vw, 2.1rem); max-width: 100%; margin-bottom: 22px; }
+html.is-phone .work-head { grid-template-columns: 1fr; gap: 14px; margin-bottom: 20px; }
+html.is-phone .work-statement { font-size: clamp(1.15rem, 6vw, 1.65rem); max-width: 100%; line-height: 1.15; }
+html.is-phone .work-blurb {
+  padding-left: 0;
+  border-left: none;
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+  font-size: .68rem;
+  line-height: 1.7;
+  max-width: 100%;
+}
 
-html.is-phone .work-head { grid-template-columns: 1fr; gap: 18px; margin-bottom: 22px; }
-html.is-phone .work-statement { font-size: clamp(1.2rem, 6.5vw, 1.75rem); max-width: 100%; }
-html.is-phone .work-blurb { padding-left: 0; border-left: none; border-top: 1px solid var(--line); padding-top: 14px; font-size: .7rem; line-height: 1.75; }
+html.is-phone .project-grid {
+  grid-template-columns: 1fr;
+  grid-auto-rows: auto;
+  gap: 10px;
+  padding-bottom: 0;
+}
+html.is-phone .project-card { padding: 18px 16px; min-height: 0; }
+html.is-phone .project-name { font-size: 1.15rem; padding-right: 30px; margin-bottom: 6px; }
+html.is-phone .project-subtitle { font-size: .52rem; margin-bottom: 10px; letter-spacing: .12em; }
+html.is-phone .project-readme-block { margin-bottom: 12px; }
+html.is-phone .project-readme-label { font-size: .48rem; letter-spacing: .18em; margin-bottom: 6px; }
+html.is-phone .project-readme { font-size: .66rem; line-height: 1.65; -webkit-line-clamp: 5; line-clamp: 5; }
+html.is-phone .project-meta { font-size: .54rem; gap: 6px 12px; padding-top: 8px; }
+html.is-phone .project-skeleton { min-height: 200px; padding: 18px 16px; }
 
-html.is-phone .project-grid { grid-template-columns: 1fr; grid-auto-rows: minmax(auto, 1fr); gap: 12px; }
-html.is-phone .project-card { padding: 20px 18px; }
-html.is-phone .project-name { font-size: 1.22rem; padding-right: 32px; }
-html.is-phone .project-subtitle { font-size: .54rem; margin-bottom: 12px; }
-html.is-phone .project-readme { font-size: .66rem; -webkit-line-clamp: 4; line-clamp: 4; }
-html.is-phone .project-meta { font-size: .55rem; gap: 6px 12px; }
+html.is-phone .repo-footer {
+  font-size: .54rem;
+  letter-spacing: .1em;
+  margin-top: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
 
-html.is-phone .repo-footer { font-size: .55rem; letter-spacing: .1em; margin-top: 18px; flex-direction: column; align-items: flex-start; gap: 8px; }
+html.is-phone .craft-grid { grid-template-columns: 1fr; gap: 16px; }
 
-html.is-phone .craft-grid,
-html.is-phone .donut-body{min-height:260px; padding:20px 12px;}
-html.is-phone #donut-pre{font-size:5.5px;}
-html.is-phone .live-grid,
-html.is-phone .record-grid,
-html.is-phone .arsenal-grid { grid-template-columns: 1fr; gap: 16px; }
+html.is-phone .poster-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+html.is-phone .poster-card { aspect-ratio: 1 / 1; }
+html.is-phone .poster-card:hover { transform: none; }
 
-html.is-phone .poster-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
-html.is-phone .calendar-frame { padding: 14px; min-height: 180px; }
-html.is-phone .craft-note { font-size: .68rem; padding-left: 16px; }
+html.is-phone .craft-side { gap: 14px; }
+html.is-phone .calendar-frame { padding: 12px; min-height: 200px; }
+html.is-phone .craft-note {
+  font-size: .66rem;
+  line-height: 1.75;
+  padding-left: 14px;
+}
 
-html.is-phone .chaos-frame-wrap { min-height: 240px; }
-html.is-phone .signal-foot { gap: 10px 18px; padding: 12px 16px; }
-html.is-phone .signal-meta { font-size: .55rem; }
+html.is-phone .live-grid { grid-template-columns: 1fr; gap: 14px; }
+html.is-phone .live-side { gap: 14px; }
+
+html.is-phone .log-box { min-height: 340px; }
+html.is-phone .signal-head { padding: 12px 16px; }
+html.is-phone .signal-label { font-size: .56rem; letter-spacing: .18em; }
+html.is-phone .signal-badge { font-size: .5rem; padding: 3px 8px; }
+
+html.is-phone .scanning-status { font-size: .66rem; padding: 14px 18px; }
+html.is-phone .log-entry { padding: 16px 18px; gap: 6px; }
+html.is-phone .log-entry:hover { padding-left: 18px; background: transparent; }
+html.is-phone .log-entry-meta { font-size: .54rem; gap: 8px; }
+html.is-phone .log-entry-title { font-size: .98rem; line-height: 1.3; }
+html.is-phone .log-entry-excerpt { font-size: .66rem; line-height: 1.65; }
 
 html.is-phone .stat-row { grid-template-columns: repeat(3, 1fr); }
-html.is-phone .stat { padding: 14px 12px; }
+html.is-phone .stat { padding: 14px 10px; gap: 3px; }
 html.is-phone .stat-value { font-size: 1.35rem; }
-html.is-phone .stat-label { font-size: .46rem; letter-spacing: .12em; }
+html.is-phone .stat-label { font-size: .46rem; letter-spacing: .1em; }
 
-html.is-phone .stack-col { min-height: 320px; }
+html.is-phone .arsenal-grid { grid-template-columns: 1fr; gap: 12px; }
+html.is-phone .stack-col { min-height: 280px; max-height: 380px; }
+html.is-phone .stack-track { animation-duration: 30s; }
+html.is-phone .stack-col:nth-child(2) .stack-track { animation-duration: 34s; }
+html.is-phone .stack-col:nth-child(3) .stack-track { animation-duration: 32s; }
 
-html.is-phone .exp-block { padding: 24px 20px; }
-html.is-phone .exp-role { font-size: 1.35rem; }
+html.is-phone .track-category {
+  font-size: .55rem;
+  padding: 14px 18px 8px;
+  letter-spacing: .2em;
+}
+html.is-phone .track-item { padding: 8px 18px; gap: 11px; }
+html.is-phone .track-item:hover { padding-left: 18px; background: transparent; }
+html.is-phone .track-item i { font-size: .88rem; width: 16px; }
+html.is-phone .track-item:hover i { transform: none; }
+html.is-phone .track-item span { font-size: .68rem; }
+html.is-phone .track-item:hover span { color: var(--fg-dim); }
+
+html.is-phone .record-grid { grid-template-columns: 1fr; gap: 16px; }
+html.is-phone .exp-stack { gap: 12px; }
+html.is-phone .exp-block { padding: 22px 18px; }
+html.is-phone .exp-block:hover { transform: none; border-color: var(--line); }
+html.is-phone .exp-company { font-size: .56rem; letter-spacing: .18em; margin-bottom: 6px; }
+html.is-phone .exp-role { font-size: 1.3rem; line-height: 1.15; margin-bottom: 6px; }
+html.is-phone .exp-dates {
+  font-size: .58rem;
+  letter-spacing: .12em;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+}
 html.is-phone .exp-desc { font-size: .72rem; line-height: 1.85; }
 
-html.is-phone .cta-block { padding: 26px 20px; gap: 20px; }
-html.is-phone .cta-title { font-size: 1.5rem; }
-html.is-phone .cta-btn { width: 100%; justify-content: center; padding: 14px 22px; }
+html.is-phone .cta-block { padding: 24px 20px; gap: 18px; }
+html.is-phone .cta-title { font-size: 1.35rem; max-width: 100%; line-height: 1.15; }
+html.is-phone .cta-text { font-size: .7rem; line-height: 1.75; }
+html.is-phone .cta-btn {
+  width: 100%;
+  justify-content: center;
+  padding: 13px 20px;
+  font-size: .62rem;
+  letter-spacing: .16em;
+}
 
-html.is-phone .page-footer { flex-direction: column; gap: 6px; font-size: .55rem; padding-top: 22px; }
+html.is-phone .page-footer {
+  flex-direction: column;
+  gap: 6px;
+  font-size: .54rem;
+  letter-spacing: .12em;
+  padding-top: 20px;
+}
 
-html.is-phone .poster-lightbox { padding: 24px 16px 70px; }
+html.is-phone .poster-lightbox { padding: 60px 16px 70px; }
 html.is-phone .pl-close { top: 12px; right: 12px; width: 36px; height: 36px; font-size: 1rem; }
-html.is-phone .pl-caption { bottom: 18px; font-size: .55rem; letter-spacing: .16em; }
+html.is-phone .pl-caption { bottom: 18px; font-size: .55rem; letter-spacing: .14em; }
 
 html.is-phone .char { animation-duration: .4s; animation-delay: calc(var(--ci) * 12ms + 80ms); }
 html.is-phone .js .rv { transition-duration: .55s; }
@@ -952,7 +1052,7 @@ html.is-phone .js .mask > span { transition-duration: .7s; }
         </div>
 
         <div class="chaos-frame-wrap">
-          <iframe src="https://controlled-chaos.pages.dev/" class="chaos-iframe"
+          <iframe data-src="https://controlled-chaos.pages.dev/" class="chaos-iframe"
                   title="Controlled Chaos Stream" allow="autoplay" loading="lazy"></iframe>
         </div>
 
@@ -2440,6 +2540,14 @@ if (flagModal && !IS_PHONE){
 })();
 
 document.addEventListener('DOMContentLoaded', () => {
+  if (IS_PHONE) {
+    document.querySelectorAll('.donut-frame, .chaos-box').forEach(el => el.remove());
+  } else {
+    document.querySelectorAll('iframe[data-src]').forEach(f => {
+      f.src = f.dataset.src;
+    });
+  }
+
   loadBlogManifest();
   fetchChaosStatus();
   if (!IS_PHONE) initV86();
