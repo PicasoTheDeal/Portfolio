@@ -79,7 +79,11 @@ body{
   padding:22px clamp(24px,3.4vw,60px);
   padding-top:calc(22px + env(safe-area-inset-top, 0));
   pointer-events:none;
-  mix-blend-mode:difference;
+  background:rgba(0,0,0,.82);
+  backdrop-filter:blur(14px) saturate(1.4);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  box-shadow:0 8px 32px rgba(0,0,0,.55);
 }
 .wordmark{font-family:var(--font-pixel); font-size:.72rem; letter-spacing:.04em; color:var(--white); pointer-events:auto;}
 .wordmark .dot{color:var(--chartreuse);}
@@ -93,10 +97,12 @@ body{
   display:flex; align-items:stretch; justify-content:space-between;
   border-top:1px solid var(--line);
   background:rgba(0,0,0,.82);
-  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  backdrop-filter:blur(16px) saturate(1.4);
+  -webkit-backdrop-filter:blur(16px) saturate(1.4);
   padding:0 clamp(16px,2.4vw,40px);
   padding-bottom:env(safe-area-inset-bottom, 0);
   height:56px;
+  box-shadow:0 -8px 32px rgba(0,0,0,.55);
 }
 .nav-side{
   display:flex; align-items:center; gap:11px;
@@ -295,9 +301,9 @@ body.has-clue .terminal-foot.pulse{animation:footPulse 1.4s var(--ease) 2;}
 .project-card{position:relative; display:flex; flex-direction:column; padding:clamp(18px,2vh,26px) clamp(18px,1.6vw,24px); background:var(--black); border:1px solid var(--line); text-decoration:none; color:inherit; overflow:hidden; counter-increment:project-counter; transition:background .45s var(--ease), color .45s var(--ease), border-color .45s var(--ease), transform .4s var(--ease);}
 .project-card.fresh{animation:cardIn .55s var(--ease) both; animation-delay:calc(var(--i, 0) * 45ms);}
 @keyframes cardIn{from{opacity:0; transform:translateY(18px);}to{opacity:1; transform:none;}}
-.project-card::before{content:'0' counter(project-counter); position:absolute; top:14px; right:16px; font-family:var(--font-mono); font-size:.62rem; font-weight:600; letter-spacing:.12em; color:var(--fg-ghost); transition:color .4s var(--ease), transform .5s var(--ease);}
+.project-card::before{content:'0' counter(project-counter); position:absolute; top:14px; right:16px; font-family:var(--font-mono); font-size:.62rem; font-weight:600; letter-spacing:.12em; color:var(--fg); transition:color .4s var(--ease), transform .5s var(--ease);}
 .project-card::after{content:'→'; position:absolute; bottom:14px; right:16px; font-family:var(--font-mono); font-size:.9rem; color:var(--fg-ghost); opacity:0; transform:translateX(-8px); transition:opacity .4s var(--ease), transform .5s var(--ease), color .4s;}
-.project-card:hover{background:var(--white); color:var(--black); border-color:var(--white);}
+.project-card:hover{background:var(--chartreuse); color:var(--black); border-color:var(--white);}
 .project-card:hover::before{color:var(--forest-moss); transform:translateY(-2px);}
 .project-card:hover::after{opacity:1; transform:translateX(0); color:var(--black);}
 
@@ -321,7 +327,7 @@ body.has-clue .terminal-foot.pulse{animation:footPulse 1.4s var(--ease) 2;}
 .project-readme{font-family:var(--font-mono); font-size:.68rem; line-height:1.7; color:var(--fg-dim); letter-spacing:.004em; display:-webkit-box; -webkit-line-clamp:5; line-clamp:5; -webkit-box-orient:vertical; overflow:hidden; transition:color .4s var(--ease); word-break:break-word; flex:1;}
 .project-card:hover .project-readme{color:rgba(0,0,0,.62);}
 
-.project-meta{margin-top:auto; display:flex; flex-wrap:wrap; gap:8px 14px; font-family:var(--font-mono); font-size:.58rem; letter-spacing:.06em; color:var(--fg-faint); transition:color .4s var(--ease); padding-top:10px; border-top:1px solid var(--line); flex-shrink:0;}
+.project-meta{margin-top:auto; display:flex; flex-wrap:wrap; gap:8px 14px; font-family:var(--font-mono); font-size:.58rem; letter-spacing:.06em; color:var(--fg); transition:color .4s var(--ease); padding-top:10px; border-top:1px solid var(--line); flex-shrink:0;}
 .project-meta span{display:inline-flex; align-items:center; gap:5px;}
 .project-card:hover .project-meta{color:rgba(0,0,0,.5); border-top-color:rgba(0,0,0,.1);}
 .project-meta .meta-live{color:var(--chartreuse); font-weight:600;}
@@ -336,12 +342,51 @@ body.has-clue .terminal-foot.pulse{animation:footPulse 1.4s var(--ease) 2;}
 .sk-line.sk-desc{width:100%;}
 .sk-line.sk-desc.short{width:72%;}
 
-.repo-footer{flex-shrink:0; margin-top:22px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px 24px; font-family:var(--font-mono); font-size:.58rem; letter-spacing:.14em; text-transform:uppercase; color:var(--fg-faint);}
+.repo-footer{
+  flex-shrink:0;
+  margin-top:auto;
+  padding-top:20px;
+  padding-bottom:6px;
+  border-top:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:12px 24px;
+  font-family:var(--font-mono);
+  font-size:.58rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--fg);
+}
 .repo-footer .live-pulse{display:inline-block; width:5px; height:5px; background:var(--chartreuse); margin-right:7px; vertical-align:middle; animation:tick 2s steps(2,start) infinite;}
 .repo-footer a{color:var(--lime-cream); text-decoration:none; border-bottom:1px solid transparent; transition:border-color .3s var(--ease);}
 .repo-footer a:hover{border-bottom-color:var(--chartreuse);}
 
-.craft-grid{flex:1; min-height:0; display:grid; grid-template-columns:1.4fr 1fr; gap:clamp(20px,2.6vw,40px);}
+.craft-grid{
+  display:grid;
+  grid-template-columns:minmax(0, 1fr) minmax(0, 1.2fr);
+  grid-template-rows:auto auto;
+  gap:clamp(20px,2.6vw,40px);
+  align-items:start;
+  padding-bottom:6px;
+}
+.craft-grid > .donut-frame{
+  grid-column:1;
+  grid-row:1 / span 2;
+}
+.craft-grid > .craft-side{
+  grid-column:2;
+  grid-row:1;
+}
+.craft-grid > .poster-grid{
+  grid-column:2;
+  grid-row:2;
+}
+.craft-grid > .donut-frame{
+  position:sticky;
+  top:0;
+}
 .donut-frame:hover{border-color:var(--line-hi);}
 .donut-head{
   display:flex;
@@ -490,8 +535,19 @@ html.is-phone #donut-pre{font-size:5.8px;}
 .poster-card:hover img{filter:grayscale(0) contrast(1.05) brightness(1); transform:scale(1.07);}
 .poster-card:hover::after{opacity:.25;}
 
-.craft-side{display:flex; flex-direction:column; gap:clamp(16px,2.2vh,24px); min-height:0;}
-.calendar-frame{flex:1; min-height:0; border:1px solid var(--line); background:var(--black); padding:18px; display:flex; align-items:center; justify-content:center; overflow:hidden; transition:border-color .4s var(--ease);}
+.craft-side{display:flex; flex-direction:column; gap:clamp(16px,2.2vh,24px);}
+.calendar-frame{
+  min-height:auto;
+  max-height:auto;
+  border:1px solid var(--line);
+  background:var(--black);
+  padding:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  transition:border-color .4s var(--ease);
+}
 .calendar-frame:hover{border-color:var(--line-hi);}
 .commit-calendar-img{width:100%; height:100%; object-fit:contain; display:block; filter:grayscale(1) contrast(1.1) brightness(.92); transition:filter .6s var(--ease);}
 .calendar-frame:hover .commit-calendar-img{filter:grayscale(0) contrast(1.05) brightness(1);}
@@ -739,8 +795,18 @@ html.is-phone .repo-footer {
   gap: 8px;
 }
 
-html.is-phone .craft-grid { grid-template-columns: 1fr; gap: 16px; }
-
+html.is-phone .craft-grid {
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  gap: 16px;
+}
+html.is-phone .craft-grid > .donut-frame,
+html.is-phone .craft-grid > .craft-side,
+html.is-phone .craft-grid > .poster-grid {
+  grid-column: 1;
+  grid-row: auto;
+  position: static;
+}
 html.is-phone .poster-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
@@ -843,7 +909,14 @@ html.is-phone .js .mask > span { transition-duration: .7s; }
   .work-head{grid-template-columns:1fr; align-items:start;}
 }
 @media (max-width:900px){
-  .craft-grid,
+  .craft-grid{grid-template-columns:1fr; grid-template-rows:auto;}
+  .craft-grid > .donut-frame,
+  .craft-grid > .craft-side,
+  .craft-grid > .poster-grid{
+    grid-column:1;
+    grid-row:auto;
+    position:static;
+  }
   .live-grid,
   .record-grid{grid-template-columns:1fr;}
   .arsenal-grid{grid-template-columns:1fr;}
@@ -959,7 +1032,10 @@ html.is-phone .js .mask > span { transition-duration: .7s; }
       <span class="chapter-name">The Work</span>
       <span class="chapter-line"></span>
     </div>
-
+  <div class="repo-footer rv" style="--d:3">
+      <span id="repo-status"><span class="live-pulse"></span>syncing with github…</span>
+      <span><a href="https://github.com/PicasoTheDeal?tab=repositories" target="_blank" rel="noopener noreferrer">view all on github →</a></span>
+    </div>
     <div class="work-head">
       <h2 class="work-statement mask" style="--d:1"><span>I break things <em>to understand them,</em> then build them back stronger.</span></h2>
       <p class="work-blurb rv" style="--d:2">
@@ -977,11 +1053,6 @@ html.is-phone .js .mask > span { transition-duration: .7s; }
       <div class="project-skeleton"><div class="sk-line sk-title"></div><div class="sk-line sk-sub"></div><div class="sk-line sk-desc"></div><div class="sk-line sk-desc short"></div></div>
       <div class="project-skeleton"><div class="sk-line sk-title"></div><div class="sk-line sk-sub"></div><div class="sk-line sk-desc"></div><div class="sk-line sk-desc short"></div></div>
       <div class="project-skeleton"><div class="sk-line sk-title"></div><div class="sk-line sk-sub"></div><div class="sk-line sk-desc"></div><div class="sk-line sk-desc short"></div></div>
-    </div>
-
-    <div class="repo-footer rv" style="--d:3">
-      <span id="repo-status"><span class="live-pulse"></span>syncing with github…</span>
-      <span><a href="https://github.com/PicasoTheDeal?tab=repositories" target="_blank" rel="noopener noreferrer">view all on github →</a></span>
     </div>
   </section>
 
@@ -2644,16 +2715,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (rafId !== null){ cancelAnimationFrame(rafId); rafId = null; }
   }
 
-  const io = new IntersectionObserver((entries) => {
-    for (const entry of entries){
-      if (entry.isIntersecting) start(); else stop();
-    }
-  }, { threshold: 0.01 });
-  io.observe(pre);
+  start();
 
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) stop();
+    else start();
   });
+
+  window.addEventListener('pagehide', stop);
+  window.addEventListener('pageshow', start);
 })();
 </script>
 </body>
