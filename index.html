@@ -2813,7 +2813,7 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.classList.toggle('active', active);
       btn.setAttribute('aria-pressed', active ? 'true' : 'false');
       if (iconEl)  iconEl.className = active ? 'bi bi-eye-fill' : 'bi bi-eye-slash';
-      if (labelEl) labelEl.textContent = active ? 'Normal text' : 'Larger text';
+      if (labelEl) labelEl.textContent = active ? 'Normal eyes' : 'blury eyes';
       try { localStorage.setItem(KEY, active ? '1' : '0'); } catch (_) {}
     }
 
