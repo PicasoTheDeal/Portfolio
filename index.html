@@ -618,8 +618,15 @@ body.has-clue .terminal-foot.pulse{animation:footPulse 1.4s var(--ease) 2;}
 .track-item span{font-family:var(--font-mono); font-size:.72rem; color:var(--fg-dim); white-space:nowrap; transition:color .25s var(--ease);}
 .track-item:hover span{color:var(--black);}
 
-.record-grid{flex:1; min-height:0; display:grid; grid-template-columns:1.35fr 1fr; gap:clamp(24px,3vw,52px); align-content:start;}
-.exp-stack{display:flex; flex-direction:column; gap:clamp(16px,2.4vh,24px);}
+.record-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(20px,2.4vw,36px);
+  flex:1;
+  min-height:0;
+  align-content:start;
+}
+.exp-stack{display:contents;}
 .exp-block{position:relative; border:1px solid var(--line); background:var(--black); padding:clamp(26px,3.4vh,40px) clamp(24px,2.2vw,36px); transition:border-color .4s var(--ease), transform .5s var(--ease);}
 .exp-block::before{content:''; position:absolute; left:0; top:0; width:2px; height:100%; background:var(--chartreuse); transform:scaleY(0); transform-origin:top; transition:transform .7s var(--ease);}
 .exp-block:hover::before{transform:scaleY(1);}
@@ -629,7 +636,16 @@ body.has-clue .terminal-foot.pulse{animation:footPulse 1.4s var(--ease) 2;}
 .exp-dates{display:block; font-family:var(--font-mono); font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; color:var(--fg-faint); margin-bottom:22px; padding-bottom:20px; border-bottom:1px solid var(--line);}
 .exp-desc{font-family:var(--font-mono); font-size:.76rem; line-height:1.9; color:var(--fg-dim);}
 
-.cta-block{display:flex; flex-direction:column; justify-content:center; gap:24px; padding:clamp(30px,4vh,46px) clamp(24px,2.2vw,38px); border:1px solid var(--line-hi); background:var(--black); transition:border-color .4s var(--ease);}
+.cta-block{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:24px;
+  padding:clamp(30px,4vh,46px) clamp(24px,2.2vw,38px);
+  border:1px solid var(--line-hi);
+  background:var(--black);
+  transition:border-color .4s var(--ease);
+}
 .cta-block:hover{border-color:var(--chartreuse);}
 .cta-title{font-family:var(--font-serif); font-size:clamp(1.4rem,2.4vw,2.05rem); font-weight:400; line-height:1.1; letter-spacing:-.022em; color:var(--white); max-width:16ch;}
 .cta-title em{font-style:italic; color:var(--chartreuse);}
@@ -638,6 +654,32 @@ body.has-clue .terminal-foot.pulse{animation:footPulse 1.4s var(--ease) 2;}
 .cta-btn i{font-size:.9rem; transition:transform .35s var(--ease);}
 .cta-btn:hover{background:var(--black); color:var(--chartreuse); border-color:var(--chartreuse);}
 .cta-btn:hover i{transform:translateX(4px);}
+
+.prologue-left .cta-block{
+  margin-top:22px;
+  padding:20px 22px;
+  gap:14px;
+  max-width:46ch;
+  border-color:var(--line);
+}
+.prologue-left .cta-block:hover{border-color:var(--chartreuse);}
+.prologue-left .cta-title{
+  font-size:clamp(1.05rem,1.5vw,1.3rem);
+  line-height:1.2;
+  max-width:none;
+  letter-spacing:-.018em;
+}
+.prologue-left .cta-text{
+  font-size:.68rem;
+  line-height:1.7;
+}
+.prologue-left .cta-btn{
+  padding:11px 18px;
+  font-size:.58rem;
+  letter-spacing:.16em;
+  gap:10px;
+}
+.prologue-left .cta-btn i{font-size:.8rem;}
 
 .cursor-dot{position:fixed; top:0; left:0; width:7px; height:7px; background:var(--chartreuse); pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:width .3s var(--ease), height .3s var(--ease), background .3s var(--ease); mix-blend-mode:difference;}
 .cursor-dot.grow{width:28px; height:28px; background:var(--white);}
@@ -811,6 +853,29 @@ html.is-phone .narrative-label{
 html.is-phone .narrative-text{font-size:.74rem; line-height:1.8;}
 html.is-phone .narrative-author{font-size:.98rem; margin-bottom:6px;}
 
+html.is-phone .prologue-left .cta-block{
+  margin-top:20px;
+  padding:20px 18px;
+  gap:14px;
+  max-width:100%;
+}
+html.is-phone .prologue-left .cta-title{
+  font-size:1.15rem;
+  line-height:1.2;
+}
+html.is-phone .prologue-left .cta-text{
+  font-size:.68rem;
+  line-height:1.7;
+}
+html.is-phone .prologue-left .cta-btn{
+  align-self:stretch;
+  width:100%;
+  justify-content:center;
+  padding:13px 18px;
+  font-size:.6rem;
+  letter-spacing:.16em;
+}
+
 html.is-phone .work-head{
   grid-template-columns:1fr;
   gap:14px;
@@ -980,13 +1045,12 @@ html.is-phone .track-item span{font-size:.7rem;}
 
 html.is-phone .record-grid{
   grid-template-columns:1fr;
-  grid-template-rows:auto;
-  gap:18px;
+  gap:14px;
   flex:initial;
   min-height:0;
   align-content:stretch;
 }
-html.is-phone .exp-stack{gap:14px;}
+html.is-phone .exp-stack{display:contents;}
 html.is-phone .exp-block{
   padding:24px 20px;
   border-left:3px solid var(--chartreuse);
@@ -1010,33 +1074,6 @@ html.is-phone .exp-dates{
   padding-bottom:12px;
 }
 html.is-phone .exp-desc{font-size:.74rem; line-height:1.8;}
-
-html.is-phone .cta-block{
-  padding:26px 22px;
-  gap:18px;
-  border-color:var(--line);
-}
-html.is-phone .cta-title{
-  font-size:1.35rem;
-  line-height:1.18;
-  max-width:100%;
-  letter-spacing:-.015em;
-}
-html.is-phone .cta-text{font-size:.72rem; line-height:1.75;}
-html.is-phone .cta-btn{
-  align-self:stretch;
-  width:100%;
-  justify-content:center;
-  padding:15px 20px;
-  font-size:.64rem;
-  letter-spacing:.16em;
-  gap:10px;
-}
-html.is-phone .cta-btn:active{
-  background:var(--chartreuse);
-  color:var(--black);
-  border-color:var(--chartreuse);
-}
 
 html.is-phone .chapter-nav{
   height:64px;
@@ -1103,16 +1140,6 @@ html.is-phone .dot-btn:active{
   background:rgba(206,255,26,.12);
 }
 
-html.is-phone .a11y-toggle{
-  left:14px;
-  bottom:calc(64px + env(safe-area-inset-bottom, 0px) + 16px);
-  padding:8px 12px;
-  font-size:.54rem;
-  letter-spacing:.1em;
-  gap:7px;
-}
-html.is-phone .a11y-toggle i{font-size:.85rem;}
-
 @media (max-width:1180px){
   .project-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
   .prologue-grid{grid-template-columns:1fr;}
@@ -1122,8 +1149,7 @@ html.is-phone .a11y-toggle i{font-size:.85rem;}
 }
 @media (max-width:900px){
   .craft-grid{grid-template-columns:1fr; grid-template-rows:auto;}
-  .live-grid,
-  .record-grid{grid-template-columns:1fr;}
+  .live-grid{grid-template-columns:1fr;}
   .arsenal-grid{grid-template-columns:1fr;}
   .statement{max-width:26ch;}
   .panel{padding:72px 24px 88px;}
@@ -1135,133 +1161,6 @@ html.is-phone .a11y-toggle i{font-size:.85rem;}
   .poster-lightbox{padding:20px;}
   .pl-close{top:14px; right:14px; width:36px; height:36px;}
   .pl-caption{bottom:14px; font-size:.56rem;}
-}
-
-html.a11y-large-text .hero-overline,
-html.a11y-large-text .narrative-label,
-html.a11y-large-text .chapter-name,
-html.a11y-large-text .chapter-num,
-html.a11y-large-text .top-meta,
-html.a11y-large-text .nav-side,
-html.a11y-large-text .dot-btn,
-html.a11y-large-text .project-subtitle,
-html.a11y-large-text .project-readme-label,
-html.a11y-large-text .project-meta,
-html.a11y-large-text .repo-head,
-html.a11y-large-text .donut-title,
-html.a11y-large-text .donut-badge,
-html.a11y-large-text .donut-meta,
-html.a11y-large-text .signal-label,
-html.a11y-large-text .signal-meta,
-html.a11y-large-text .log-entry-meta,
-html.a11y-large-text .stat-label,
-html.a11y-large-text .track-category,
-html.a11y-large-text .exp-company,
-html.a11y-large-text .exp-dates,
-html.a11y-large-text .side-mark,
-html.a11y-large-text .term-title,
-html.a11y-large-text .term-status,
-html.a11y-large-text .term-copy,
-html.a11y-large-text .focus-indicator,
-html.a11y-large-text .cmdk-esc,
-html.a11y-large-text .cmdk-foot,
-html.a11y-large-text .flag-cmd,
-html.a11y-large-text .scanning-status{
-  font-size:.72rem !important;
-  letter-spacing:.08em !important;
-}
-
-html.a11y-large-text .hero-roles,
-html.a11y-large-text .hero-location,
-html.a11y-large-text .contact-link,
-html.a11y-large-text .narrative-text,
-html.a11y-large-text .work-blurb,
-html.a11y-large-text .project-readme,
-html.a11y-large-text .craft-note,
-html.a11y-large-text .log-entry-excerpt,
-html.a11y-large-text .track-item span,
-html.a11y-large-text .exp-desc,
-html.a11y-large-text .cta-text,
-html.a11y-large-text .cta-btn,
-html.a11y-large-text .cmdk-item,
-html.a11y-large-text .node-excerpt,
-html.a11y-large-text .flag-content{
-  font-size:.84rem !important;
-  line-height:1.7 !important;
-}
-
-html.a11y-large-text .hero-name{
-  font-size:clamp(2.6rem, 7.2vw, 6.4rem) !important;
-}
-html.a11y-large-text .statement{
-  font-size:clamp(1.45rem, 3vw, 2.7rem) !important;
-}
-html.a11y-large-text .work-statement{
-  font-size:clamp(1.2rem, 2.2vw, 1.95rem) !important;
-}
-html.a11y-large-text .cta-title{
-  font-size:clamp(1.2rem, 2vw, 1.75rem) !important;
-}
-html.a11y-large-text .exp-role{
-  font-size:clamp(1.2rem, 1.9vw, 1.65rem) !important;
-}
-html.a11y-large-text .project-name{
-  font-size:clamp(1rem, 1.4vw, 1.3rem) !important;
-}
-html.a11y-large-text .stat-value{
-  font-size:1.6rem !important;
-}
-html.a11y-large-text .narrative-author{
-  font-size:.95rem !important;
-}
-html.a11y-large-text .log-entry-title{
-  font-size:.95rem !important;
-}
-
-html.a11y-large-text .project-card{padding:24px 22px;}
-html.a11y-large-text .exp-block{padding:30px 26px;}
-html.a11y-large-text .log-entry{padding:20px 22px;}
-html.a11y-large-text .track-item{padding:12px 22px;}
-html.a11y-large-text .flag-content{padding:28px; line-height:1.85 !important;}
-
-.a11y-toggle{
-  position:fixed;
-  left:clamp(18px,2.2vw,30px);
-  bottom:72px;
-  z-index:64;
-  display:flex;
-  align-items:center;
-  gap:9px;
-  padding:8px 14px;
-  background:var(--lime-cream);
-  border:1px solid var(--line);
-  color:var(--black);
-  font-family:var(--font-mono);
-  font-size:.58rem;
-  font-weight:600;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-  cursor:pointer;
-  user-select:none;
-  backdrop-filter:blur(6px);
-  -webkit-backdrop-filter:blur(6px);
-  transition:color .3s var(--ease), border-color .3s var(--ease), background .3s var(--ease);
-}
-.a11y-toggle:hover{
-  color:var(--chartreuse);
-  border-color:var(--chartreuse);
-  background:rgba(0,0,0,.9);
-}
-.a11y-toggle i{font-size:.95rem; line-height:1; color:inherit;}
-.a11y-toggle.active{
-  background:var(--chartreuse);
-  border-color:var(--chartreuse);
-  color:var(--black);
-}
-.a11y-toggle.active:hover{
-  background:var(--lime-cream);
-  border-color:var(--lime-cream);
-  color:var(--black);
 }
 </style>
 </head>
@@ -1327,6 +1226,16 @@ html.a11y-large-text .flag-content{padding:28px; line-height:1.85 !important;}
             Sup, I am a security researcher and a software engineer. I like researching
             about whatever I find intersting. So just look around and see what I do.
           </p>
+        </div>
+
+        <div class="cta-block rv" style="--d:6">
+          <h3 class="cta-title">Want to work together<em>To build or research</em>?</h3>
+          <p class="cta-text">
+            Open to remote research, systems engineering and full-stack contracts.
+          </p>
+          <a href="mailto:picasothedeal.com@gmail.com" class="cta-btn">
+            Get in touch <i class="bi bi-arrow-right"></i>
+          </a>
         </div>
       </div>
 
@@ -1583,16 +1492,6 @@ html.a11y-large-text .flag-content{padding:28px; line-height:1.85 !important;}
           </p>
         </article>
       </div>
-
-      <div class="cta-block rv" style="--d:2">
-        <h3 class="cta-title">Want to work together<em>To build or research</em>?</h3>
-        <p class="cta-text">
-          Open to remote research, systems engineering and full-stack contracts.
-        </p>
-        <a href="mailto:picasothedeal.com@gmail.com" class="cta-btn">
-          Get in touch <i class="bi bi-arrow-right"></i>
-        </a>
-      </div>
     </div>
   </section>
 
@@ -1614,14 +1513,6 @@ html.a11y-large-text .flag-content{padding:28px; line-height:1.85 !important;}
 
 <button class="cmdk-hint" id="cmdk-hint" type="button" aria-label="Open command palette">
   <kbd id="cmdk-key">⌘K</kbd><span>commands</span>
-</button>
-
-<button class="a11y-toggle" id="a11y-toggle" type="button"
-        aria-pressed="false"
-        aria-label="Toggle larger text size for readability"
-        title="Toggle larger text size (for low-vision readers)">
-  <i class="bi bi-eye-slash" aria-hidden="true"></i>
-  <span>Larger text</span>
 </button>
 
 <div class="cmdk-overlay" id="cmdk" hidden>
@@ -2970,35 +2861,6 @@ document.addEventListener('DOMContentLoaded', () => {
       f.src = f.dataset.src;
     });
   }
-
-  (function initA11yToggle(){
-    const btn = document.getElementById('a11y-toggle');
-    if (!btn) return;
-
-    const KEY = 'tetstack-a11y-large-text';
-    const iconEl = btn.querySelector('i');
-    const labelEl = btn.querySelector('span');
-
-    let active = false;
-    try { active = localStorage.getItem(KEY) === '1'; } catch (_) {}
-
-    function apply(state){
-      active = !!state;
-      document.documentElement.classList.toggle('a11y-large-text', active);
-      btn.classList.toggle('active', active);
-      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
-      if (iconEl)  iconEl.className = active ? 'bi bi-eye-fill' : 'bi bi-eye-slash';
-      if (labelEl) labelEl.textContent = active ? 'Normal eyes' : 'blurry eyes';
-      try { localStorage.setItem(KEY, active ? '1' : '0'); } catch (_) {}
-    }
-
-    apply(active);
-
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      apply(!active);
-    });
-  })();
 
   loadBlogManifest();
   if (!IS_PHONE) initV86();
